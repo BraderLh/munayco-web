@@ -14,7 +14,8 @@ export const CarouselHome = () => {
               <Image 
                 key={index} 
                 src={image.default} 
-                alt={`image-${index}`} 
+                alt={`image-${index}`}
+                priority={true}
                 style={{
                     width: 'auto',
                     height: '90%',

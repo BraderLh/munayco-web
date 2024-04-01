@@ -53,14 +53,12 @@ export async function deleteBranch(branchId) {
 }
 
 export async function getBranches() {
-  const token =  localStorage.getItem('auth-token')
   try {
     const options = {
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin': "*",
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Content-Type': 'application/json'
       },
       next: {revalidate: 3600}
     }

@@ -1,63 +1,54 @@
-import { CarouselHome } from "@/components/CarouselHome";
+import { CarouselHome } from "@/components/home/CarouselHome";
 import { Header } from "@/components/Header";
-import Image from "next/image";
 import Link from "next/link";
-import { Card } from 'flowbite-react';
-import  PizzasHome from "@/components/PizzasHome";
+import { CiPizza } from "react-icons/ci";
+import { MdRestaurantMenu } from "react-icons/md";
+import { MenuHome } from "@/components/home/MenuHome";
+import PizzasSsr from "@/utils/PizzasSsr";
 
 export default function StartPage() {
   return (
     <>
-      <Header/>
-      <main className="container mx-auto text-amber-600 block border border-white gap-3">
-        <h1 className="font-bold text-2xl">Promociones</h1>
-        <CarouselHome/>
-        <h1 className="font-bold text-2xl">Pizzas</h1>
-        <PizzasHome/>
-        <Link
-          href="./home/pizzas"
-          className="ml-[80%] no-underline hover:underline text-lime-600 hover:text-lime-700 text-lg"
-        >Ver pizzas
-        </Link>
-        {/* <div className="container mx-auto justify-center p-4 w-[100%]">
-          <h1 className="font-bold text-2xl">Pizzas</h1>
-        </div> */}
-        <div className="container mx-auto justify-center px-4 mb-10">
-          <h1 className="font-bold text-2xl">Menus</h1>
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-            <div>
-              <Card 
-                className="max-w-sm" 
-                renderImage={() => <Image width={200} height={100} src="/images/menu/general.jpg" alt="menu-1" className="rounded-lg p-1"/>}
-                horizontal>
-                <h5 className="text-2xl font-bold tracking-tight text-lime-700 dark:text-lime-200">
-                  Menu general
-                </h5>
-                <p className="font-normal text-rose-800 dark:text-gray-400">
-                  Ven y disfruta con tu amigos del menu general que ofrece Munayco pizzas, ofrece una variedad de pizzas clásicas y bebidas.
-                </p>
-              </Card>
-            </div>
-            <div>
-              <Card 
-                className="max-w-sm"
-                renderImage={() => <Image width={230} height={200} src="/images/menu/familiar.jpg" alt="menu-2" className="rounded-lg p-1"/>}
-                horizontal>
-                <h5 className="text-2xl font-bold tracking-tight text-lime-700 dark:text-lime-200">
-                  Menu familiar
-                </h5>
-                <p className="font-normal text-rose-800 dark:text-gray-400">
-                  Ven y disfruta con tu familia del variado menu que ofrece Munayco pizzas, con el menu familiar que ofrece Munayco Pizzas.
-                </p>
-              </Card>
-            </div>
+      <Header />
+      <main className="container mx-auto text-amber-600 block border border-white gap-3 p-2">
+        <section className="hover:bg-lime-50 p-2 rounded-lg">
+          <h1 className="font-bold text-2xl md:text-3xl my-2">Promociones</h1>
+          <CarouselHome />
+        </section>
+        <section className="hover:bg-lime-50 p-2 rounded-lg">
+          <h1 className="font-bold text-2xl md:text-3xl my-2">Pizzas</h1>
+          <div className="w-full h-full">
+            <PizzasSsr />
           </div>
-          <Link
-            href="./home/menu"
-            className="ml-[85%] no-underline hover:underline text-lime-600 hover:text-lime-700 text-lg"
-          >Ver menús
-          </Link>
-        </div>
+          <div className="flex justify-end">
+            <Link
+              href="./home/pizzas"
+              className="inline-flex items-center justify-center no-underline hover:underline text-lime-700 hover:text-lime-800 text-lg"
+            >
+              <CiPizza size={"3.5rem"} />
+              <span className="w-full ml-2 md:ml-3 text-xl my-auto">
+                Ver pizzas
+              </span>
+            </Link>
+          </div>
+        </section>
+        <section className="container mx-auto justify-center hover:bg-lime-50">
+          <h1 className="font-bold text-2xl md:text-3xl my-2">Menus</h1>
+          <div className="w-full h-full">
+            <MenuHome />
+          </div>
+          <div className="flex justify-end">
+            <Link
+              href="./home/menu"
+              className="inline-flex items-center justify-center no-underline hover:underline text-lime-700 hover:text-lime-800 text-lg"
+            >
+              <MdRestaurantMenu size={"3rem"} />
+              <span className="w-full ml-2 md:ml-3 mr-2 text-xl my-auto">
+                Ver menus
+              </span>
+            </Link>
+          </div>
+        </section>
       </main>
     </>
   );

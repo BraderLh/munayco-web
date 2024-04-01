@@ -1,14 +1,28 @@
 import React from "react";
 import { Card } from "flowbite-react";
-import Image from 'next/image';
+import Image from "next/image";
 
 export const ItemType = ({ item }) => {
   return (
-    <div className="gap-2">
+    <div>
       <Card
         className="max-w-sm"
         imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        renderImage={() => <Image width={400} height={300} src={item.image} alt={`item-${item.itemsTypeId}`} />}
+        renderImage={() => (
+          <Image
+            width={400}
+            height={300}
+            src={item.image}
+            priority={true}
+            alt={`item-${item.itemsTypeId}`}
+            style={
+              {
+                height: 'auto',
+                maxWidth: '100%'
+              }
+            }
+          />
+        )}
         // imgSrc={item.image}
       >
         {item.image}

@@ -1,23 +1,36 @@
+'use client';
+
 import { GridPizzas } from "@/components/pizzas/GridPizzas";
 import { fetchItems } from "@/services/items";
-// import { useState} from "react";
+import { useState, useEffect } from "react";
+import { Toaster, toast } from "sonner";
 
-export default async function PizzasPage() {
-  const itemsTypeList = await fetchItems()
-  console.log('list' + itemsTypeList);
+export default function PizzasPage() {
+  const [items, setItems] = useState([]);
+  //const itemsTypeList = await fetchItems();
+  //setItems(itemsTypeList.data);
+  //console.log("list" + itemsTypeList);
   // console.log(itemsTypeList);
   //itemsTypeList.sort((a,b) => a.itemsTypeId - b.itemsTypeId)
+  useEffect(() => {
+    toast.promise(fetchItems, {
+      loading: "Cargando ...",
+      success: (res) => {
+        console.log(res);
+        setItems(res.data);
+        return "Datos cargados satisfactoriamente";
+      },
+      error: "Error al cargar datos",
+    });
+  }, []);
 
   return (
     <>
       <main className="container mx-auto py-10 px-4 w-full border border-white">
-        {/* <GridPizzas items = {itemsTypeList}></GridPizzas> */}
-      <pre>{JSON.stringify(itemsTypeList, null, 2)}</pre>
+        {items && <GridPizzas items={items}></GridPizzas>}
+        <Toaster richColors position="bottom-right" visibleToasts={1} toastOptions={{duration: 5000}}/>
+        {/* <pre>{JSON.stringify(itemsTypeList, null, 2)}</pre> */}
       </main>
-      {/* <div className="container mx-auto justify-center px-2">
-        <h1 className="text-xl font-bold text-amber-600">Pizza List</h1>
-        <GridPizzas items = {itemsTypeList}></GridPizzas>
-      </div> */}
     </>
   );
 }
