@@ -19,13 +19,13 @@ const PizzasHome = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 p-2 bg-red-400 rounded-md sm:grid-cols-2 md:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 p-2 bg-yellow-300 rounded-md border-2 border-dashed border-orange-400 sm:grid-cols-2 md:grid-cols-4">
         {/* <div>
           <p className="text-black">{JSON.stringify(imgs, 2)}</p>
         </div> */}
         {pizzaList && pizzaList.map((img, key) => {
           return (
-            <div className="flex flex-col" key={key}>
+            <div className="flex flex-col border-2 border-dotted border-lime-600 rounded-md" key={key}>
               <Image
                 src={img.default.src}
                 alt={"pizza"}

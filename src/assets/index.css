@@ -19,6 +19,29 @@
     --eigth-color: #fcf0d3;
     --ninth-color: #351808;
 }
+#pizzaIconHeader:hover {
+    fill: white;
+}
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: #65a30d #fdc86d;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 30px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #d9f99d;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #d9f99d;
+    border-radius: 12px;
+    border: 10px solid #d2352d;
+  }
 
 html {
     font-size: var(--font-size);

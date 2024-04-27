@@ -1,5 +1,5 @@
-'use client';
-import React,  { useState } from "react";
+"use client";
+import React, { useState } from "react";
 import { GiFullPizza } from "react-icons/gi";
 import Link from "next/link";
 
@@ -8,24 +8,33 @@ export const Header = () => {
 
   const openDropdown = () => {
     setIsNavCollapsed(!isNavCollapsed);
-  }
+  };
 
   return (
     <>
       <header>
         <nav className="bg-lime-600 border-b border-lime-700 dark:bg-lime-900 p-1 md:p-2 w-full z-20 top-0 start-0">
-          <div className="max-w-screen-xl flex flex-wrap items-center justify-between p-4 mx-auto">
-            <Link
-              href="/"
-              className="flex items-center space-x-3 rtl:space-x-reverse text-yellow-50 hover:text-yellow-400 mr-5"
-            >
-              <span className="inline-flex font-semibold text-4xl tracking-tight whitespace-nowrap dark:text-white">
-                Munayc
-                <GiFullPizza className="ml-1 mr-3" size={40} color="orange" /> Pizzas
-              </span>
-            </Link>
-            <div className="flex md:order-2 space-x-4 md:space-x-0 rtl:space-x-reverse">
-              <div className="flex space-x-4">
+          <div className="max-w-screen-xl flex flex-wrap mx-auto container items-center justify-between p-4">
+            <div>
+              <Link
+                href="/"
+                className="flex items-center space-x-3 rtl:space-x-reverse text-yellow-50 hover:text-yellow-400 mr-5"
+              >
+                <span className="inline-flex font-bold text-4xl tracking-tight whitespace-nowrap dark:text-white">
+                  Munayc
+                  <GiFullPizza
+                    className="ml-1 mr-3"
+                    size={45}
+                    color="orange"
+                    id="pizzaIconHeader"
+                  />
+                  Pizzas
+                </span>
+              </Link>
+            </div>
+            {/* <div className="flex md:order-2 space-x-4 md:space-x-0 rtl:space-x-reverse"> */}
+            <div>
+              {/* <div className="flex space-x-4">
                 <Link
                   href="auth/login"
                   className="text-base p-4 leading-none border rounded text-white font-medium text-center border-white 
@@ -42,7 +51,7 @@ export const Header = () => {
                 >
                   Registrarme
                 </Link>
-              </div>
+              </div> */}
               <button
                 data-collapse-toggle="navbar-cta"
                 type="button"
@@ -71,7 +80,9 @@ export const Header = () => {
               </button>
             </div>
             <div
-              className={`${isNavCollapsed ? 'hidden' : ''} navbar-collapse items-center justify-between w-full md:flex md:w-auto md:order-1`}
+              className={`${
+                isNavCollapsed ? "hidden" : ""
+              } navbar-collapse items-center justify-between w-full md:flex md:w-auto md:order-1`}
               id="navbar-cta"
             >
               <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 text-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -105,7 +116,7 @@ export const Header = () => {
                     href="/contact"
                     className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:dark:hover:yellow-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                   >
-                    Contactanos
+                    Contáctanos
                   </Link>
                 </li>
               </ul>

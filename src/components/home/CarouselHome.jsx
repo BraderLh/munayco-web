@@ -7,7 +7,7 @@ export const CarouselHome = () => {
 
   return (
     <>
-      <div className="h-56 sm:h-70 xl:h-80 2xl:h-96 bg-red-400 py-4 my-4 rounded-md">
+      <div className="h-64 md:w-full md:h-80 2xl:h-96 bg-yellow-300 py-2 my-2 rounded-md border-2 border-dashed border-orange-400">
         <Carousel pauseOnHover>
           {imageList.map((image, index) => {
             return (
@@ -17,9 +17,10 @@ export const CarouselHome = () => {
                 alt={`image-${index}`}
                 priority={true}
                 style={{
-                    width: 'auto',
-                    height: '90%',
-                    objectFit:'contain'
+                    // width: 'auto',
+                    height: '100%',
+                    maxWidth: '98%',
+                    
                 }}
               />
             );

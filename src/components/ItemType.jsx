@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export const ItemType = ({ item }) => {
-  const [pizzaModal, setPizzaModal] = useState(true);
+  const [pizzaModal, setPizzaModal] = useState(false);
   const splitPrices = item.prices.split(",");
   let convertedPrices = splitPrices.map((numStr) =>
     parseFloat(numStr).toFixed(2)
@@ -16,7 +16,7 @@ export const ItemType = ({ item }) => {
   return (
     <div>
       <Card
-        className="max-w-sm bg-amber-200 border border-solid border-orange-300"
+        className="max-w-sm h-[505px] bg-amber-200 border border-solid border-orange-300"
         imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
         renderImage={() => (
           <Image
@@ -44,7 +44,7 @@ export const ItemType = ({ item }) => {
             <h3 className="text-green-600 dark:text-green-200">{item.size}</h3>
           </div>
           <div className="text-lg">
-            <p className="italic">{item.ingredients}</p>
+            <p className="italic truncate text-pretty h-[56px]">{item.ingredients}</p>
           </div>
         </div>
         <div className="flex items-center justify-between">
@@ -66,7 +66,7 @@ export const ItemType = ({ item }) => {
             show={pizzaModal}
             onClose={() => setPizzaModal(false)}
           >
-            <Modal.Header className="bg-orange-400 dark:bg-yellow-600"><h1 className="font-bold text-2xl text-red-700 dark:text-amber-100">{item.name}</h1></Modal.Header>
+            <Modal.Header className="bg-orange-400 dark:bg-yellow-600 "><div className="font-bold  text-2xl text-red-600 dark:text-red-100">{item.name}</div></Modal.Header>
             <Modal.Body className="bg-amber-200">
               <div className="flex flex-col">
                 <div className="h-100 w-98">

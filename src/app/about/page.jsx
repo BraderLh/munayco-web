@@ -12,40 +12,31 @@ const AboutUsPage = () => {
       <div className="grid gap-4 grid-auto-rows p-4 bg-amber-600 rounded-md">
         <div>
           <section className="flex flex-col space-y-4 bg-amber-400 justify-center rounded-md p-2">
-            <h2 className="font-semibold text-xl text-yellow-600">
-              Nuestros locales
-            </h2>
+            <h2 className="font-semibold text-2xl text-lime-700">Misión</h2>
             <p className="text-justify">
-              En <strong>Munayco Pizzas</strong>, nos enorgullece ofrecer una
-              experiencia excepcional en cada uno de nuestros locales. Desde el
-              momento en que entras por nuestras puertas, te sumergirás en un
-              ambiente acogedor y familiar que te hará sentir como en casa.
-              Nuestros locales están cuidadosamente diseñados para brindar un
-              ambiente cálido y acogedor. Con una decoración inspirada en la
-              auténtica trattoria italiana, nuestras mesas y sillas están
-              dispuestas de manera que te permitan disfrutar de la compañía de
-              tus seres queridos mientras saboreas nuestras deliciosas pizzas.
-              <br />
-              La calidad es nuestra prioridad, por lo que sólo utilizamos solo
-              los ingredientes más frescos y de la más alta calidad en cada una
-              de nuestras creaciones. Desde nuestra masa artesanal, elaborada
-              con harina de trigo premium y fermentada a la perfección, hasta
-              nuestros exquisitos condimentos y quesos cuidadosamente
-              seleccionados, cada bocado está lleno de sabor y frescura. Nuestra
-              amplia variedad de opciones en el menú garantiza que haya algo
-              para todos los gustos. Desde nuestras clásicas pizzas de pepperoni
-              y margarita hasta nuestras creaciones gourmet con combinaciones
-              únicas de ingredientes, estamos seguros de que encontrarás algo
-              que te encante.
-              <br /> En Munayco Pizzas, el cliente siempre es nuestra prioridad.
-              Nuestro amable y atento personal está aquí para asegurarse de que
-              tu experiencia sea impecable. Desde ofrecerte recomendaciones
-              sobre nuestro menú hasta asegurarse de que tu pedido llegue
-              caliente y rápido a tu mesa, estamos comprometidos a brindarte un
-              servicio excepcional en todo momento. Ven y únete a nosotros en
-              Munayco Pizzas, donde la buena comida y el buen ambiente se unen
-              para crear recuerdos inolvidables. ¡Esperamos verte pronto en uno
-              de nuestros locales!
+              En <strong>Munayco Pizza</strong>, nuestra misión es simple pero
+              poderosa: ofrecer la mejor experiencia culinaria a nuestros
+              clientes a través de nuestra pasión por la pizza. Desde nuestros
+              humildes comienzos como una pequeña pizzería local hasta
+              convertirnos en una marca reconocida a nivel nacional, nos hemos
+              dedicado a elevar el estándar de la pizza a nuevas alturas.
+              Nuestro equipo está comprometido a brindar una experiencia
+              inolvidable a cada uno de nuestros clientes, ya sea que estén
+              disfrutando de una comida rápida en uno de nuestros locales o
+              celebrando una ocasión especial en casa con una de nuestras pizzas
+              para llevar.
+              <br /><br/>
+              Además de nuestra pasión por la pizza, también estamos
+              comprometidos con nuestra comunidad y nuestro medio ambiente. Nos
+              esforzamos por ser un miembro activo y responsable de las
+              comunidades en las que operamos, apoyando causas locales y
+              participando en iniciativas de sostenibilidad para reducir nuestro
+              impacto en el medio ambiente. En Munayco Pizzas, estamos
+              orgullosos de ser más que una simple pizzería; somos una
+              experiencia culinaria, una comunidad y una familia. Desde nuestros
+              fieles clientes hasta nuestro dedicado equipo, todos formamos
+              parte de la familia Munayco Pizzas, y estamos encantados de
+              compartir nuestra pasión por la pizza con el mundo.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-2 p-10">
               <div>
@@ -74,10 +65,8 @@ const AboutUsPage = () => {
         </div>
         <div>
           <section className="flex flex-col space-y-4 bg-amber-400 justify-center rounded-md p-2">
-            <h2 className="font-semibold text-xl text-yellow-600">
-              Preparación
-            </h2>
-            <p>
+            <h2 className="font-semibold text-2xl text-lime-700">Preparación</h2>
+            <p className="text-pretty">
               En <strong>Munayco Pizzas</strong>, la preparación de nuestras
               pizzas es todo un arte. Cada paso, desde la creación de la masa
               hasta el último toque de condimento, se realiza con pasión y
@@ -87,12 +76,14 @@ const AboutUsPage = () => {
               una textura única y deliciosa. Nuestros chefs expertos trabajan
               con precisión y cuidado para estirar la masa a mano, creando una
               base perfecta para nuestras pizzas. Una vez que la masa está
-              lista, llega el momento de añadir los ingredientes. <br /> De esta
+              lista, llega el momento de añadir los ingredientes. De esta
               manera, solo utilizamos los ingredientes más frescos y de la más
-              alta calidad. Desde nuestros tomates madurados al sol hasta
-              nuestros quesos italianos importados, cada ingrediente se
-              selecciona con esmero para garantizar un sabor excepcional en cada
-              bocado. Nuestras pizzas se hornean en hornos de piedra a altas
+              alta calidad para que te delietes cada uno de los platos que
+              podemos ofrecerte.
+              <br /> <br/>Desde nuestros tomates madurados al sol hasta nuestros
+              quesos italianos importados, cada ingrediente se selecciona con
+              esmero para garantizar un sabor excepcional en cada bocado.
+              Nuestras pizzas se hornean en hornos de piedra a altas
               temperaturas, lo que asegura que la masa se cocine a la
               perfección, con un borde crujiente y un centro suave y esponjoso.
               Mientras se hornean, los deliciosos aromas de nuestros
@@ -102,12 +93,6 @@ const AboutUsPage = () => {
               hierbas frescas, aceite de oliva virgen extra y una pizca de sal
               marina. Siendo, el resultado final, una obra maestra culinaria,
               lista para ser disfrutada por ti y tus seres queridos.
-              <br />
-              En Munayco Pizzas, la preparación de nuestras pizzas es más que
-              una tarea, es una pasión. Cada pizza que sale de nuestra cocina
-              está imbuida con el amor y la dedicación de nuestro talentoso
-              equipo, y estamos seguros de que podrás saborear la diferencia en
-              cada bocado.
             </p>
             <div className="border border-white rounded-lg m-4 p-4">
               <iframe

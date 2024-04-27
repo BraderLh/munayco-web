@@ -10,13 +10,15 @@ export default function StartPage() {
   return (
     <>
       <Header />
-      <main className="container mx-auto text-amber-600 block border border-white gap-3 p-2">
+      <main className="container mx-auto h-full text-amber-600 block border-2 border-amber-200 gap-3 p-2">
         <section className="hover:bg-lime-50 p-2 rounded-lg">
-          <h1 className="font-bold text-2xl md:text-3xl my-2">Promociones</h1>
-          <CarouselHome />
+          <h1 className="font-semibold text-2xl md:text-3xl my-2">Promociones</h1>
+          <div className="flex w-[80%] mx-auto justify-center">
+            <CarouselHome />
+          </div>
         </section>
         <section className="hover:bg-lime-50 p-2 rounded-lg">
-          <h1 className="font-bold text-2xl md:text-3xl my-2">Pizzas</h1>
+          <h1 className="font-semibold text-2xl md:text-3xl my-3">Pizzas</h1>
           <div className="w-full h-full">
             <PizzasSsr />
           </div>
@@ -32,8 +34,8 @@ export default function StartPage() {
             </Link>
           </div>
         </section>
-        <section className="container mx-auto justify-center hover:bg-lime-50">
-          <h1 className="font-bold text-2xl md:text-3xl my-2">Menus</h1>
+        <section className="container mx-auto justify-center hover:bg-lime-50 p-2 rounded-lg">
+          <h1 className="font-semibold text-2xl md:text-3xl my-2">Menus</h1>
           <div className="w-full h-full">
             <MenuHome />
           </div>

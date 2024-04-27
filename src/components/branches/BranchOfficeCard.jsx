@@ -69,30 +69,30 @@ export const BranchOfficeCard = ({ branch }) => {
             }}
           />
           <div className="inline-flex m-2">
-            <FaPizzaSlice className="my-auto transition delay-500 duration-300 ease-in-out hover:text-orange-400" size={30}/>
+            <FaPizzaSlice className="my-auto transition delay-500 duration-300 ease-in-out hover:text-orange-400" size={30} color="#f59e0b"/>
             <h5 className="ml-2 text-lg font-medium dark:text-white">
               {branch.address}
             </h5>
           </div>
           <div className="inline-flex">
-            <GiRotaryPhone size={30} className="mr-2 animate-pulse hover:text-orange-400"/>
+            <GiRotaryPhone size={30} className="mr-2 animate-pulse hover:text-orange-400" color="#0891b2"/>
             <span className="text-lg text-amber-900 dark:text-gray-200 mr-4">
               {branch.telephone}
             </span>
-            <GiSmartphone size={30}  className="mr-2 animate-pulse hover:text-orange-400"/>
+            <GiSmartphone size={30}  className="mr-2 animate-pulse hover:text-orange-400" color="#0284c7"/>
             <span className="text-lg text-amber-900 dark:text-gray-200">
               {branch.phone}
             </span>
           </div>
           <div className="inline-flex m-2">
-            <MdOutlineAccessTime size={30} className="animate-spin hover:text-orange-400"/>
+            <MdOutlineAccessTime size={30} className="animate-spin hover:text-orange-400" color="#7c3aed"/>
             <span className="inline-block ml-2 text-base font-semibold text-amber-900 dark:text-gray-200 whitespace">
               De &nbsp; {branch.openingHours.slice(0, 2)} am. &nbsp; a &nbsp;{" "}
               {branch.openingHours.slice(3, branch.openingHours.length)} pm.
             </span>
           </div>
           <div className="inline-flex m-2">
-            <BsGeoAlt size={30} className="animate-bounce hover:text-orange-400"/>
+            <BsGeoAlt size={30} className="animate-bounce hover:text-orange-400" color="#dc2626"/>
             <button
               onClick={() => setOpenFrame(true)}
               className="ml-2 text-lg text-amber-900 dark:text-gray-200 hover:underline hover:text-orange-500"
