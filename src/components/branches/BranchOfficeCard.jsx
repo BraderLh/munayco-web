@@ -23,8 +23,8 @@ export const BranchOfficeCard = ({ branch }) => {
 
   return (
     <div className="justify-self-stretch">
-      <Card className="max-w-sm bg-orange-50 border border-lime-600 shadow-lime-500">
-        <div className="flex justify-end px-4 pt-4">
+      <Card className="max-w-sm bg-amber-50 border border-lime-600 shadow-lime-500">
+        {/* <div className="flex justify-end px-4 pt-4">
           <Dropdown inline label="" className="border border-lime-400 bg-lime-100">
             <DropdownItem icon={FaRegEdit} className="hover:bg-lime-200 focus:bg-lime-300">
               <a
@@ -51,8 +51,8 @@ export const BranchOfficeCard = ({ branch }) => {
               </a>
             </DropdownItem>
           </Dropdown>
-        </div>
-        <div className="flex flex-col items-center pb-10">
+        </div> */}
+        <div className="flex flex-col items-center pb-10 space-y-4">
           <Image
             alt="Bonnie image"
             height={100}
@@ -69,33 +69,33 @@ export const BranchOfficeCard = ({ branch }) => {
             }}
           />
           <div className="inline-flex m-2">
-            <FaPizzaSlice className="my-auto" />
-            <h5 className="ml-2 text-md font-medium dark:text-white">
+            <FaPizzaSlice className="my-auto transition delay-500 duration-300 ease-in-out hover:text-orange-400" size={30}/>
+            <h5 className="ml-2 text-lg font-medium dark:text-white">
               {branch.address}
             </h5>
           </div>
-          <div className="inline-flex m-2">
-            <GiRotaryPhone className="my-auto text-lg" />
-            <span className="ml-2 text-md text-amber-900 dark:text-gray-200">
+          <div className="inline-flex">
+            <GiRotaryPhone size={30} className="mr-2 animate-pulse hover:text-orange-400"/>
+            <span className="text-lg text-amber-900 dark:text-gray-200 mr-4">
               {branch.telephone}
             </span>
-            <GiSmartphone className="my-auto ml-4 text-lg" />
-            <span className="ml-1 text-md text-amber-900 dark:text-gray-200">
+            <GiSmartphone size={30}  className="mr-2 animate-pulse hover:text-orange-400"/>
+            <span className="text-lg text-amber-900 dark:text-gray-200">
               {branch.phone}
             </span>
           </div>
           <div className="inline-flex m-2">
-            <MdOutlineAccessTime className="my-auto text-lg" />
-            <span className="inline-block ml-2 text-md text-amber-900 dark:text-gray-200 whitespace">
+            <MdOutlineAccessTime size={30} className="animate-spin hover:text-orange-400"/>
+            <span className="inline-block ml-2 text-base font-semibold text-amber-900 dark:text-gray-200 whitespace">
               De &nbsp; {branch.openingHours.slice(0, 2)} am. &nbsp; a &nbsp;{" "}
               {branch.openingHours.slice(3, branch.openingHours.length)} pm.
             </span>
           </div>
           <div className="inline-flex m-2">
-            <BsGeoAlt className="my-auto text-lg" />
+            <BsGeoAlt size={30} className="animate-bounce hover:text-orange-400"/>
             <button
               onClick={() => setOpenFrame(true)}
-              className="ml-2 text-md text-amber-900 dark:text-gray-200 hover:underline hover:text-orange-500"
+              className="ml-2 text-lg text-amber-900 dark:text-gray-200 hover:underline hover:text-orange-500"
             >
               Ver mapa
             </button>

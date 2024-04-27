@@ -1,0 +1,22 @@
+{
+    "code": 200,
+    "message": "Execution successful",
+    "data": [
+        {
+            "status": 1,
+            "userCreate": "Admin",
+            "dateCreate": "2024-03-25T21:04:28.897+00:00",
+            "userDelete": null,
+            "dateDelete": null,
+            "userModify": null,
+            "dateModify": null,
+            "branchOfficesId": 1,
+            "address": "Av. El Sol 113",
+            "image": "/images/local/externo/local1.png",
+            "location": "-16.41319219204147, -71.49351592716435",
+            "openingHours": "10-08",
+            "phone": "973643385",
+            "telephone": "711840"
+        }
+    ]
+}

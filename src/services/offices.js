@@ -1,53 +1,55 @@
 import Error from "next/error";
 
-const API_BRANCH_OFFICES_URL = 'http://localhost:8080/balh/munayco/api/v1/branchOffice';
+const API_BRANCH_OFFICES_URL =
+  "http://localhost:8080/balh/munayco/api/v1/branchOffice";
 
 export async function createBranch(form) {
-  const token =  localStorage.getItem('auth-token')
+  const token = localStorage.getItem("auth-token");
   try {
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Access-Control-Allow-Origin': "*",
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(form)
-    }
+      body: JSON.stringify(form),
+    };
     const response = await fetch(API_BRANCH_OFFICES_URL, options);
-  
+
     if (!response.ok) {
       throw new Error(response.status);
     }
-    
+
     return response.json();
-    
   } catch (error) {
-    console.error('ERROR: ' + error);
+    console.error("ERROR: " + error);
     throw new Error(error);
   }
 }
 
 export async function deleteBranch(branchId) {
-  const token =  localStorage.getItem('auth-token')
+  const token = localStorage.getItem("auth-token");
   try {
     const options = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    }
-    const response = await fetch(API_BRANCH_OFFICES_URL + `/${branchId}`, options);
-  
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(
+      API_BRANCH_OFFICES_URL + `/${branchId}`,
+      options
+    );
+
     if (!response.ok) {
       throw new Error(response.status);
     }
-    
+
     return response.json();
-    
   } catch (error) {
-    console.error('ERROR: ' + error);
+    console.error("ERROR: " + error);
     throw new Error(error);
   }
 }
@@ -55,49 +57,50 @@ export async function deleteBranch(branchId) {
 export async function getBranches() {
   try {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Access-Control-Allow-Origin': "*",
-        'Content-Type': 'application/json'
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
       },
-      next: {revalidate: 3600}
-    }
+      next: { revalidate: 3600 },
+    };
     const response = await fetch(API_BRANCH_OFFICES_URL, options);
-  
+
     if (!response.ok) {
       throw new Error(response.status);
     }
-    
+
     return response.json();
-    
   } catch (error) {
-    console.error('ERROR: ' + error);
+    console.error("ERROR: " + error);
     throw new Error(error);
   }
 }
 
 export async function updateBranch(branchId, form) {
-  const token =  localStorage.getItem('auth-token')
+  const token = localStorage.getItem("auth-token");
   try {
     const options = {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(form),
-      next: {revalidate: 3600}
-    }
-    const response = await fetch(API_BRANCH_OFFICES_URL + `/${branchId}`, options);
-  
+      next: { revalidate: 3600 },
+    };
+    const response = await fetch(
+      API_BRANCH_OFFICES_URL + `/${branchId}`,
+      options
+    );
+
     if (!response.ok) {
       throw new Error(response.status);
     }
-    
+
     return response.json();
-    
   } catch (error) {
-    console.error('ERROR: ' + error);
+    console.error("ERROR: " + error);
     throw new Error(error);
   }
 }

@@ -53,17 +53,17 @@ export default function LoginPage() {
   return (
     <>
       <HeaderAuth />
-      <main className="container w-[480px] h-screen mx-auto space-y-4 flex flex-col justify-center">
-        <div className="mx-auto flex w-full h-[520px] flex-col justify-center border-2 border-lime-500 rounded-lg p-4">
+      <main className="container md:w-1/3 h-screen mx-auto space-y-4 flex flex-col justify-center">
+        <div className="mx-auto flex w-full h-[520px] flex-col justify-center border-2 border-dashed border-sky-400 rounded-lg p-4 bg-amber-300">
           <div className="flex flex-col text-center space-y-5">
-            <h1 className="text-4xl font-semibold">Iniciar sesión</h1>
-            <p className="text-sm text-slate-600">
+            <h1 className="text-4xl font-semibold text-orange-600">Iniciar sesión</h1>
+            <p className="text-base md:text-lg text-slate-600">
               Ingresa tu correo y contraseña para iniciar sesión
             </p>
           </div>
 
           <form className="flex flex-col gap-5 p-3" onSubmit={handleLogin}>
-            <label className="block mt-4" htmlFor="emailId">
+            <label className="block mt-4 text-base md:text-lg" htmlFor="emailId">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-bold mb-4">
                 Correo electrónico 
               </span>
@@ -80,7 +80,7 @@ export default function LoginPage() {
                 value={form.email}
               />
             </label>
-            <label className="block mt-2" htmlFor="passwordId">
+            <label className="block mt-2 text-base md:text-lg" htmlFor="passwordId">
               <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block font-bold mb-4">
               Contraseña
               </span>
@@ -100,7 +100,7 @@ export default function LoginPage() {
               Iniciar sesión
             </button>
           </form>
-          <div className="flex justify-center gap-2 font-bold">
+          <div className="flex justify-center gap-2 font-semibold text-base md:text-lg">
             <span>¿No tienes una cuenta?</span>
             <Link
               href="/auth/sigin"

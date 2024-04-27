@@ -44,7 +44,7 @@ export default function StartPage() {
             >
               <MdRestaurantMenu size={"3rem"} />
               <span className="w-full ml-2 md:ml-3 mr-2 text-xl my-auto">
-                Ver menus
+                Ver carta
               </span>
             </Link>
           </div>

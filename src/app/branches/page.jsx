@@ -8,7 +8,7 @@ export default function BranchesPage() {
   return (
     <>
       <Header />
-      <main className="grid gap-4 grid-flow-row auto-rows-max md:auto-rows-min">
+      <main className="grid gap-4 grid-flow-row auto-rows-max md:auto-rows-min h-auto">
         <div className="m-4 h-full">
           <section className="rounded-md bg-orange-400 p-4 container mx-auto">
             <h1 className="font-bold text-2xl text-amber-200 mb-4">Locales</h1>
@@ -26,7 +26,7 @@ export default function BranchesPage() {
         <div className="flex justify-end mr-[10%]">
           <BranchWrapper />
         </div>
-        <div className="container mx-auto">
+        <div className="container mx-auto w-full">
           <BranchList />
         </div>
         <div>

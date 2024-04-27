@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <>
       <header>
-        <nav className="bg-lime-600 border-b border-lime-600 dark:bg-lime-900 p-1 md:p-2 fixed w-full z-20 top-0 start-0">
+        <nav className="bg-lime-600 border-b border-lime-700 dark:bg-lime-900 p-1 md:p-2 w-full z-20 top-0 start-0">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between p-4 mx-auto">
             <Link
               href="/"
@@ -21,21 +21,24 @@ export const Header = () => {
             >
               <span className="inline-flex font-semibold text-4xl tracking-tight whitespace-nowrap dark:text-white">
                 Munayc
-                <GiFullPizza className="mr-2" /> Pizzas
+                <GiFullPizza className="ml-1 mr-3" size={40} color="orange" /> Pizzas
               </span>
             </Link>
             <div className="flex md:order-2 space-x-4 md:space-x-0 rtl:space-x-reverse">
-              {/* <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button> */}
               <div className="flex space-x-4">
                 <Link
                   href="auth/login"
-                  className="inline-block text-base p-4 leading-none border rounded text-white border-white hover:border-transparent hover:text-lime-700 hover:bg-white mt-4 mr-2 lg:mt-0 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
+                  className="text-base p-4 leading-none border rounded text-white font-medium text-center border-white 
+                  hover:border-transparent hover:text-lime-700 hover:font-bold focus:ring-4 focus:outline-none focus:ring-amber-100 
+                  hover:bg-white mt-4 mr-2 lg:mt-0 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
                 >
                   Iniciar Sesión
                 </Link>
                 <Link
                   href="auth/sigin"
-                  className="inline-block text-base p-4 py-auto leading-none border rounded text-white border-white hover:border-transparent hover:text-lime-700 hover:bg-white mt-4 lg:mt-0"
+                  className="text-base p-4 leading-none border rounded text-white font-medium text-center border-white 
+                  hover:border-transparent hover:text-lime-700 hover:font-bold focus:ring-4 focus:outline-none focus:ring-amber-100
+                hover:bg-white mt-4 lg:mt-0 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
                 >
                   Registrarme
                 </Link>

@@ -1,12 +1,22 @@
+"use client";
+
 import React from "react";
-import { Card } from "flowbite-react";
+import { Card, Carousel, Modal } from "flowbite-react";
+import { FaRegHandPointLeft, FaRegHandPointRight } from "react-icons/fa";
 import Image from "next/image";
+import { useState } from "react";
 
 export const ItemType = ({ item }) => {
+  const [pizzaModal, setPizzaModal] = useState(true);
+  const splitPrices = item.prices.split(",");
+  let convertedPrices = splitPrices.map((numStr) =>
+    parseFloat(numStr).toFixed(2)
+  );
+
   return (
     <div>
       <Card
-        className="max-w-sm"
+        className="max-w-sm bg-amber-200 border border-solid border-orange-300"
         imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
         renderImage={() => (
           <Image
@@ -15,80 +25,109 @@ export const ItemType = ({ item }) => {
             src={item.image}
             priority={true}
             alt={`item-${item.itemsTypeId}`}
-            style={
-              {
-                height: 'auto',
-                maxWidth: '100%'
-              }
-            }
+            style={{
+              height: "auto",
+              maxWidth: "100%",
+            }}
+            className="rounded-md"
           />
         )}
         // imgSrc={item.image}
       >
-        {item.image}
-        <a href="#">
-          <h3>{item.itemsTypeId}</h3>
-          <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-            {item.name}
-          </h5>
-          <h4>{item.size}</h4>
-          <p>{item.ingredients}</p>
-        </a>
-        <div className="mb-5 mt-2.5 flex items-center">
-          <svg
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          <svg
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          <svg
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          <svg
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          <svg
-            className="h-5 w-5 text-yellow-300"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          <span className="ml-3 mr-2 rounded bg-cyan-100 px-2.5 py-0.5 text-xs font-semibold text-cyan-800 dark:bg-cyan-200 dark:text-cyan-800">
-            5.0
-          </span>
+        <div className="flex flex-col gap-y-3">
+          <div className="text-3xl">
+            <h2 className="font-semibold tracking-tight text-rose-600 dark:text-rose-200">
+              {item.name}
+            </h2>
+          </div>
+          <div className="text-xl">
+            <h3 className="text-green-600 dark:text-green-200">{item.size}</h3>
+          </div>
+          <div className="text-lg">
+            <p className="italic">{item.ingredients}</p>
+          </div>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-3xl font-bold text-gray-900 dark:text-white">
-            S/. {item.price.toFixed(2)}
+          <span className="text-2xl font-semibold text-amber-500 dark:text-amber-200">
+            S/. {convertedPrices.join(" / ")}
           </span>
+        </div>
+        <div className="flex justify-end">
           <a
             href="#"
-            className="rounded-lg bg-cyan-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
+            onClick={() => setPizzaModal(true)}
+            className="rounded-lg bg-orange-500 px-5 py-2.5 text-center text-base font-medium text-white hover:bg-orange-700 
+            focus:outline-none focus:ring-4 focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
           >
-            Add to cart
+            Ver más detalles
           </a>
+          <Modal
+            dismissible
+            show={pizzaModal}
+            onClose={() => setPizzaModal(false)}
+          >
+            <Modal.Header className="bg-orange-400 dark:bg-yellow-600"><h1 className="font-bold text-2xl text-red-700 dark:text-amber-100">{item.name}</h1></Modal.Header>
+            <Modal.Body className="bg-amber-200">
+              <div className="flex flex-col">
+                <div className="h-100 w-98">
+                  <div className="h-56 md:h-64 xl:h-72">
+                    <Carousel leftControl={<FaRegHandPointLeft color="white" size={40}/>} rightControl={<FaRegHandPointRight color="white" size={40}/>}>
+                      <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" alt="..." />
+                      <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />
+                      <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
+                      <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." />
+                      <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." />
+                    </Carousel>
+                  </div>
+                </div>
+                <div className="my-2 border-2 border-dashed border-lime-500 p-2 rounded-md">
+                  <h2 className="mb-2 text-xl font-semibold text-green-600 dark:text-lime-200">Ingredientes</h2>
+                    <p className="font-medium italic">{item.ingredients}</p>
+                </div>
+                <div className="container w-full h-auto my-2 p-2 border-2 border-lime-500 border-dashed rounded-md">
+                  <table className="w-full border-separate border-spacing-2 border border-amber-600 bg-amber-300 rounded-lg">
+                    <thead className="bg-orange-500">
+                      <tr className="text-white text-lg">
+                        <th className="border rounded-md border-amber-400">Tamaño</th>
+                        <th className="border rounded-md border-amber-400">Piezas</th>
+                        <th className="border rounded-md border-amber-400">Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-amber-100 text-center">
+                      <tr>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">Personal</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">4 porciones</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">S/.{convertedPrices[0]}</td>
+                      </tr>
+                      <tr>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">Mediana</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">8 porciones</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">S/.{convertedPrices[1]}</td>
+                      </tr>
+                      <tr>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">Familiar</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">12 porciones</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">S/.{convertedPrices[2]}</td>
+                      </tr>
+                      <tr>
+                        <td className="border-2 border-dotted border-amber-600 px-2">Extra Familiar</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2">16 porciones</td>
+                        <td className="border-2 border-dotted border-amber-600 px-2">S/.50.00 (aprox)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </Modal.Body>
+            <Modal.Footer className="justify-end bg-orange-400">
+              <button type="button" onClick={() => setPizzaModal(false)} 
+                className="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 
+                font-medium rounded-full text-sm md:text-base px-5 py-2.5 text-center me-2 mb-2 
+                dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                Cerrar
+              </button>
+            </Modal.Footer>
+          </Modal>
         </div>
       </Card>
     </div>

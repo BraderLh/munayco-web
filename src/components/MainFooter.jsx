@@ -1,6 +1,7 @@
 "use client";
 
 import { Footer } from "flowbite-react";
+import Image from "next/image";
 import {
   BsDribbble,
   BsFacebook,
@@ -13,50 +14,48 @@ import {
 
 export const MainFooter = () => {
   return (
-    <Footer container className="bg-orange-200">
+    <Footer container className="bg-orange-900">
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div>
-            <Footer.Brand
-              href="https://flowbite.com"
-              src="https://flowbite.com/docs/images/logo.svg"
-              alt="Flowbite Logo"
-              name="Flowbite"
-            />
+          <div className="w-full md:w-1/4">
+            {/* <Footer.Brand
+              href="/"
+              src="/images/logo/logo.png"
+              alt="Munayco Logo"
+              name=""
+              className="w-full h-max"
+            /> */}
+            <Image src={"/images/logo/logo.png"} alt="Munayco logo" width={200} height={200} style={{
+              width: 'max-content',
+              height: 'auto'
+            }}/>
           </div>
           <div className="grid grid-cols-2 gap-6 sm:mt-4 sm:grid-cols-2 sm:gap-6">
             <div>
               <Footer.Title title="A cerca de" className="text-red-500" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#" className="text-yellow-700">Munayco</Footer.Link>
+                <Footer.Link href="#" className="text-yellow-400">Munayco</Footer.Link>
               </Footer.LinkGroup>
             </div>
-            {/*<div>
-              <Footer.Title title="Visitanos" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#">Conta</Footer.Link>
-                <Footer.Link href="#">Discord</Footer.Link>
-              </Footer.LinkGroup>
-            </div>*/}
             <div>
               <Footer.Title title="Información legal" className="text-red-500" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#" className="text-yellow-700">Política de privacidad</Footer.Link>
-                <Footer.Link href="#" className="text-yellow-700">Terminos &amp; Condiciones</Footer.Link>
-                <Footer.Link href="#" className="text-yellow-700">Cookies</Footer.Link>
+                <Footer.Link href="#" className="text-yellow-400">Política de privacidad</Footer.Link>
+                <Footer.Link href="#" className="text-yellow-400">Terminos &amp; Condiciones</Footer.Link>
+                <Footer.Link href="#" className="text-yellow-400">Cookies</Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>
         </div>
-        <Footer.Divider className="border-amber-100"/>
+        <Footer.Divider className="border-amber-200"/>
         <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright href="#" by="Munayco" year={2024}  className="text-red-500"/>
+          <Footer.Copyright href="#" by="Munayco" year={2024}  className="text-red-400"/>
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="#" icon={BsWhatsapp} className="hover:text-green-500"/>
-            <Footer.Icon href="#" icon={BsFacebook} className="hover:text-blue-600"/>
-            <Footer.Icon href="#" icon={BsInstagram} className="hover:text-orange-500"/>
-            <Footer.Icon href="#" icon={BsTwitter} className="hover:text-sky-500"/>
-            <Footer.Icon href="#" icon={BsYoutube} className="hover:text-red-600"/>
+            <Footer.Icon href="https://api.whatsapp.com/send?phone=973643385" icon={BsWhatsapp} className="text-yellow-100 hover:text-green-400"/>
+            <Footer.Icon href="#" icon={BsFacebook} className="text-yellow-100 hover:text-blue-600"/>
+            <Footer.Icon href="#" icon={BsInstagram} className="text-yellow-100 hover:text-pink-500"/>
+            <Footer.Icon href="#" icon={BsTwitter} className="text-yellow-100 hover:text-sky-500"/>
+            <Footer.Icon href="#" icon={BsYoutube} className="text-yellow-100 hover:text-red-600"/>
           </div>
         </div>
       </div>
