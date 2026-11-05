@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { GiFullPizza } from "react-icons/gi";
 import Link from "next/link";
+import { CartButton } from "@/components/cart/CartButton";
 
 export const Header = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -13,6 +14,7 @@ export const Header = () => {
   return (
     <>
       <header>
+        <CartButton floating />
         <nav className="bg-lime-600 border-b border-lime-700 dark:bg-lime-900 p-1 md:p-2 w-full z-20 top-0 start-0">
           <div className="max-w-screen-xl flex flex-wrap mx-auto container items-center justify-between p-4">
             <div>
@@ -33,7 +35,7 @@ export const Header = () => {
               </Link>
             </div>
             {/* <div className="flex md:order-2 space-x-4 md:space-x-0 rtl:space-x-reverse"> */}
-            <div>
+            <div className="flex items-center gap-3">
               {/* <div className="flex space-x-4">
                 <Link
                   href="auth/login"
@@ -103,14 +105,14 @@ export const Header = () => {
                     Sucursales
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link
                     href="/about"
                     className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:dark:hover:yellow-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:mx-3"
                   >
                     Acerca de
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link
                     href="/contact"
@@ -118,6 +120,9 @@ export const Header = () => {
                   >
                     Contáctanos
                   </Link>
+                </li>
+                <li className="hidden md:block">
+                  <CartButton />
                 </li>
               </ul>
             </div>

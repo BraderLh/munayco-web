@@ -1,9 +1,7 @@
-import { Fredoka } from "next/font/google";
 import "./globals.css";
 import { MainFooter } from "@/components/MainFooter";
-// import { useRouter } from "next/navigation";
-
-const inter = Fredoka({ subsets: ["latin"] });
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata = {
   title: "Munayco Pizzas",
@@ -12,10 +10,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        {children}
-        <MainFooter/>
+    <html lang="es">
+      <body>
+        <CartProvider>
+          {children}
+          <CartDrawer />
+          <MainFooter/>
+        </CartProvider>
       </body>
     </html>
   );

@@ -1,31 +1,37 @@
-import React, { useEffect, useState } from "react";
+"use client";
 
 import { BranchOfficeCard } from "./BranchOfficeCard";
-import { getBranches, getBranchesFromFile } from "@/services/offices";
-import locales from '../../data/locales.json';
+import { EmptyState, ErrorState, LoadingState } from "@/components/ui/AsyncState";
+import { useApiCollection } from "@/hooks/useApiCollection";
+import { getBranchesFromFixture } from "@/services/offices";
 
 const BranchList = () => {
-  const [branchList, setBranchList] = useState([]);
-  // From API consuming
-  // useEffect(() => {
-  //   getBranches().then((data) => {
-  //     setBranchList(data.data);
-  //   });
-  // }, []);
-  //Data from jsonFile
-  useEffect(() => {
-    setBranchList(locales.data)
-  }, [])
-  
+  const { data: branchList, status, error, retry } = useApiCollection(
+    getBranchesFromFixture
+  );
+
+  if (status === "loading") {
+    return <LoadingState label="Cargando sucursales..." />;
+  }
+
+  if (status === "error") {
+    return <ErrorState error={error} onRetry={retry} />;
+  }
+
+  if (branchList.length === 0) {
+    return <EmptyState message="No hay sucursales disponibles." />;
+  }
+
   return (
-    <div className="grid gap-4 grid-cols-1 md:grid-cols-3 justify-items-center p-2 md:p-4 h-full ml-3 md:ml-auto">
-      {branchList && branchList.map((branch) => {
-        return (
-          <BranchOfficeCard branch={branch} key={branch.branchOfficesId} />
-        );
-      })}
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      {branchList.map((branch) => (
+        <BranchOfficeCard
+          branch={branch}
+          key={branch.branchOfficesId ?? branch.branchOfficeId ?? branch.address}
+        />
+      ))}
     </div>
   );
-}
+};
 
 export default BranchList;

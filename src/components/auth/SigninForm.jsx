@@ -2,8 +2,10 @@
 import React, {useState} from "react";
 import { singUp } from "@/services/auth/users";
 import { toast, Toaster } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const SigninForm = () => {
+  const router = useRouter();
   const initialState = {
     names: "",
     surnames: "",
@@ -95,21 +97,33 @@ export const SigninForm = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const promiseSignUp = singUp(form);
+    if (input.password !== input.confirmPassword) {
+      setError((previous) => ({
+        ...previous,
+        confirmPassword: "Las contraseñas no coinciden.",
+      }));
+      return;
+    }
+    const promiseSignUp = singUp({
+      names: input.names,
+      surnames: input.surnames,
+      email: input.email,
+      password: input.password,
+    });
     showToastSingUp(promiseSignUp);
-    // setForm(initialState);
   };
 
   const showToastSingUp = (dataPromise) => {
     toast.promise(dataPromise, {
-      loading: "Iniciando sesión ...",
+      loading: "Registrando usuario ...",
       success: () => {
         setForm(initialState);
-        router.push("/");
-        return "Sesión iniciada existosamente";
+        setInput({ ...initialState, confirmPassword: "" });
+        router.push("/auth/login");
+        return "Usuario registrado exitosamente";
       },
       error:
-        "No se pudo iniciar sesión: datos inválidos o el usuario no existe",
+        "No se pudo registrar el usuario. Revisa los datos ingresados.",
     });
   };
   return (
@@ -135,7 +149,7 @@ export const SigninForm = () => {
         type="text"
         name="surnames"
         placeholder="Ingrese sus apellidos"
-        value={input.surname}
+        value={input.surnames}
         onChange={onInputChange}
         onBlur={validateInput}
         required

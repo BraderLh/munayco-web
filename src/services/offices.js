@@ -1,106 +1,60 @@
-import Error from "next/error";
+import { ApiError, apiRequest } from "@/services/api/client";
+import localesFixture from "@/data/locales.json";
 
-const API_BRANCH_OFFICES_URL =
-  "http://localhost:8080/balh/munayco/api/v1/branchOffice";
+const branchPath = (branchId) => `/api/v1/branchOffice/${encodeURIComponent(branchId)}`;
 
-export async function createBranch(form) {
-  const token = localStorage.getItem("auth-token");
-  try {
-    const options = {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(form),
-    };
-    const response = await fetch(API_BRANCH_OFFICES_URL, options);
+export async function getBranchesFromFixture() {
+  const data = localesFixture?.data;
 
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("ERROR: " + error);
-    throw new Error(error);
+  if (!Array.isArray(data)) {
+    throw new ApiError("Las sucursales locales no tienen un formato válido.", {
+      type: "payload",
+    });
   }
-}
 
-export async function deleteBranch(branchId) {
-  const token = localStorage.getItem("auth-token");
-  try {
-    const options = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const response = await fetch(
-      API_BRANCH_OFFICES_URL + `/${branchId}`,
-      options
-    );
-
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("ERROR: " + error);
-    throw new Error(error);
-  }
+  return data
+    .filter((branch) => branch?.active ?? branch?.status === 1)
+    .map(({ image, ...branch }) => ({
+      ...branch,
+      imageUrl: image,
+      active: branch.active ?? branch.status === 1,
+    }));
 }
 
 export async function getBranches() {
-  try {
-    const options = {
-      method: "GET",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-      next: { revalidate: 3600 },
-    };
-    const response = await fetch(API_BRANCH_OFFICES_URL, options);
+  const data = await apiRequest("/api/v1/branchOffice", {
+    method: "GET",
+    cache: "no-store",
+  });
 
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("ERROR: " + error);
-    throw new Error(error);
+  if (!Array.isArray(data)) {
+    throw new ApiError("Las sucursales recibidas no tienen un formato válido.", {
+      type: "payload",
+    });
   }
+
+  return data;
 }
 
-export async function updateBranch(branchId, form) {
-  const token = localStorage.getItem("auth-token");
-  try {
-    const options = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(form),
-      next: { revalidate: 3600 },
-    };
-    const response = await fetch(
-      API_BRANCH_OFFICES_URL + `/${branchId}`,
-      options
-    );
+export function createBranch(form) {
+  return apiRequest("/api/v1/branchOffice", {
+    method: "POST",
+    auth: true,
+    body: form,
+  });
+}
 
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
+export function deleteBranch(branchId) {
+  return apiRequest(branchPath(branchId), {
+    method: "DELETE",
+    auth: true,
+  });
+}
 
-    return response.json();
-  } catch (error) {
-    console.error("ERROR: " + error);
-    throw new Error(error);
-  }
+export function updateBranch(branchId, form) {
+  return apiRequest(branchPath(branchId), {
+    method: "PATCH",
+    auth: true,
+    body: form,
+  });
 }

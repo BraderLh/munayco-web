@@ -1,133 +1,216 @@
-import React from "react";
-import { Card, Dropdown, DropdownItem, Modal, Button } from "flowbite-react";
+"use client";
+
+import { Card, Modal, Button } from "flowbite-react";
 import { BsGeoAlt } from "react-icons/bs";
 import { GiRotaryPhone, GiSmartphone } from "react-icons/gi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaRegEdit } from "react-icons/fa";
-import { FaFileExport, FaPizzaSlice } from "react-icons/fa6";
+import { FaPizzaSlice } from "react-icons/fa6";
 import { MdOutlineAccessTime } from "react-icons/md";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
+
+function getMapUrl(location) {
+  if (typeof location !== "string") {
+    return null;
+  }
+
+  const [latitude, longitude] = location.split(",").map((value) => value.trim());
+
+  if (!latitude || !longitude || !Number.isFinite(Number(latitude)) || !Number.isFinite(Number(longitude))) {
+    return null;
+  }
+
+  return `https://maps.google.com/maps?q=${latitude},${longitude}&z=18`;
+}
+
+function getPhoneHref(value) {
+  if (typeof value !== "string" || !value.trim()) {
+    return null;
+  }
+
+  return `tel:${value.replace(/[^\d+]/g, "")}`;
+}
+
+function formatClockTime(hour, minute = 0) {
+  const normalizedHour = hour % 12 || 12;
+  const period = hour >= 12 ? "p. m." : "a. m.";
+
+  return `${normalizedHour}:${String(minute).padStart(2, "0")} ${period}`;
+}
+
+function formatOpeningHours(value) {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const match = value.trim().match(
+    /^(\d{1,2})(?::(\d{2}))?\s*[-–]\s*(\d{1,2})(?::(\d{2}))?$/
+  );
+
+  if (!match) {
+    return value.trim();
+  }
+
+  const startHour = Number(match[1]);
+  const startMinute = Number(match[2] || 0);
+  let endHour = Number(match[3]);
+  const endMinute = Number(match[4] || 0);
+
+  // The fixture uses "10-08" for 10 a. m. to 8 p. m.; preserve
+  // unambiguous 24-hour values received from a future backend.
+  if (endHour < 12 && startHour >= 6 && endHour <= startHour) {
+    endHour += 12;
+  }
+
+  return `${formatClockTime(startHour, startMinute)} – ${formatClockTime(
+    endHour,
+    endMinute
+  )}`;
+}
 
 export const BranchOfficeCard = ({ branch }) => {
   const [openFrame, setOpenFrame] = useState(false);
-  const separatedCoordinates = branch.location.replace(' ', '').split(',');
-  const mapIframeUrl = `https://maps.google.com/maps?q=${separatedCoordinates[0]}, ${separatedCoordinates[1]}&z=18`
+  const mapUrl = useMemo(() => getMapUrl(branch.location), [branch.location]);
+  const imageUrl = branch.imageUrl || branch.image;
+  const address = branch.address || "Dirección no disponible";
+  const telephoneHref = getPhoneHref(branch.telephone);
+  const phoneHref = getPhoneHref(branch.phone);
+  const openingHours = formatOpeningHours(branch.openingHours);
 
   const copyLocation = async () => {
-    await navigator.clipboard.writeText(mapIframeUrl)
-    toast.success('Dirección copiada');
-    setOpenFrame(false);
-  }
+    if (!mapUrl) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(mapUrl);
+      toast.success("Dirección copiada");
+      setOpenFrame(false);
+    } catch {
+      toast.error("No se pudo copiar la dirección");
+    }
+  };
 
   return (
-    <div className="justify-self-stretch">
-      <Card className="max-w-sm bg-amber-50 border border-lime-600 shadow-lime-500">
-        {/* <div className="flex justify-end px-4 pt-4">
-          <Dropdown inline label="" className="border border-lime-400 bg-lime-100">
-            <DropdownItem icon={FaRegEdit} className="hover:bg-lime-200 focus:bg-lime-300">
-              <a
-                href="#"
-                className="block px-4 py-2 text-base text-gray-700 hover:bg-lime-300 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Edit
-              </a>
-            </DropdownItem>
-            <DropdownItem icon={FaFileExport} className="border-t-2 border-b-2 border-lime-400 hover:bg-lime-200 focus:bg-lime-300">
-              <a
-                href="#"
-                className="block px-4 py-2 text-base text-gray-700 hover:bg-lime-300 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Export Data
-              </a>
-            </DropdownItem>
-            <DropdownItem icon={RiDeleteBin6Line} className="hover:bg-lime-200 focus:bg-lime-300">
-              <a
-                href="#"
-                className="block px-4 py-2 text-base text-red-600 hover:bg-lime-300 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Delete
-              </a>
-            </DropdownItem>
-          </Dropdown>
-        </div> */}
-        <div className="flex flex-col items-center pb-10 space-y-4">
-          <Image
-            alt="Bonnie image"
-            height={100}
-            src={branch.image}
-            width={200}
-            className="mb-3 rounded-full shadow-lg"
-            quality={90}
-            style={{
-              width: "250px",
-              height: "250px",
-              borderStyle: "solid",
-              borderColor: "#65a30d",
-              borderWidth: "medium",
-            }}
-          />
-          <div className="inline-flex m-2">
-            <FaPizzaSlice className="my-auto transition delay-500 duration-300 ease-in-out hover:text-orange-400" size={30} color="#f59e0b"/>
-            <h5 className="ml-2 text-lg font-medium dark:text-white">
-              {branch.address}
-            </h5>
-          </div>
-          <div className="inline-flex">
-            <GiRotaryPhone size={30} className="mr-2 animate-pulse hover:text-orange-400" color="#0891b2"/>
-            <span className="text-lg text-amber-900 dark:text-gray-200 mr-4">
-              {branch.telephone}
-            </span>
-            <GiSmartphone size={30}  className="mr-2 animate-pulse hover:text-orange-400" color="#0284c7"/>
-            <span className="text-lg text-amber-900 dark:text-gray-200">
-              {branch.phone}
-            </span>
-          </div>
-          <div className="inline-flex m-2">
-            <MdOutlineAccessTime size={30} className="animate-spin hover:text-orange-400" color="#7c3aed"/>
-            <span className="inline-block ml-2 text-base font-semibold text-amber-900 dark:text-gray-200 whitespace">
-              De &nbsp; {branch.openingHours.slice(0, 2)} am. &nbsp; a &nbsp;{" "}
-              {branch.openingHours.slice(3, branch.openingHours.length)} pm.
-            </span>
-          </div>
-          <div className="inline-flex m-2">
-            <BsGeoAlt size={30} className="animate-bounce hover:text-orange-400" color="#dc2626"/>
-            <button
-              onClick={() => setOpenFrame(true)}
-              className="ml-2 text-lg text-amber-900 dark:text-gray-200 hover:underline hover:text-orange-500"
-            >
-              Ver mapa
-            </button>
-          </div>
-          <Modal show={openFrame} onClose={() => setOpenFrame(false)}>
-            <Modal.Header>
-              <b className="text-lime-600 text-2xl">Mapa del local</b>
-            </Modal.Header>
-            <Modal.Body>
-              <div className="w-full border-2 border-orange-200 rounded-lg">
-                <iframe 
-                  width="100%" 
-                  loading="lazy"
-                  className="h-[350px] md:h-[450px] rounded-lg"
-                  allowFullScreen
-                  referrerPolicy="no-referrer-when-downgrade"
-                  src={`${mapIframeUrl}&output=embed`}
-                >
-                </iframe>
-              </div>
-            </Modal.Body>
-            <Modal.Footer className="flex justify-between">
-              <Button color="gray" onClick={() => setOpenFrame(false)}>
-                Cerrar
-              </Button>
-              <Button onClick={copyLocation}>
-                Copiar dirección
-              </Button>
-            </Modal.Footer>
-          </Modal>
+    <Card className="flex h-full flex-col overflow-hidden border border-lime-600 bg-amber-50 shadow-lime-500">
+      {imageUrl ? (
+        <Image
+          alt={`Exterior de la sucursal en ${address}`}
+          height={360}
+          src={imageUrl}
+          width={640}
+          className="h-52 w-full rounded-md object-cover sm:h-56"
+        />
+      ) : (
+        <div className="flex h-52 items-center justify-center rounded-md bg-amber-100 text-center text-sm text-amber-800 sm:h-56">
+          Imagen no disponible
         </div>
-      </Card>
-    </div>
+      )}
+
+      <div className="flex flex-1 flex-col gap-4">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wider text-lime-700">
+            Sucursal Munayco
+          </p>
+          <div className="mt-1 flex items-start gap-3">
+            <FaPizzaSlice
+              className="mt-1 shrink-0 text-orange-500"
+              size={24}
+              aria-hidden="true"
+            />
+            <h2 className="text-xl font-semibold text-amber-900">
+              {address}
+            </h2>
+          </div>
+        </div>
+
+        {(branch.telephone || branch.phone) && (
+          <div className="grid gap-2 text-amber-900">
+            {branch.telephone && telephoneHref && (
+              <a
+                href={telephoneHref}
+                className="inline-flex w-fit items-center gap-2 rounded-md px-1 py-1 transition hover:bg-cyan-50 hover:text-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                aria-label={`Llamar al teléfono fijo ${branch.telephone}`}
+              >
+                <GiRotaryPhone className="text-cyan-700" size={22} aria-hidden="true" />
+                <span>
+                  <span className="mr-2 text-sm text-amber-700">Fijo</span>
+                  {branch.telephone}
+                </span>
+              </a>
+            )}
+            {branch.phone && phoneHref && (
+              <a
+                href={phoneHref}
+                className="inline-flex w-fit items-center gap-2 rounded-md px-1 py-1 transition hover:bg-sky-50 hover:text-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                aria-label={`Llamar al celular ${branch.phone}`}
+              >
+                <GiSmartphone className="text-sky-700" size={22} aria-hidden="true" />
+                <span>
+                  <span className="mr-2 text-sm text-amber-700">Celular</span>
+                  {branch.phone}
+                </span>
+              </a>
+            )}
+          </div>
+        )}
+
+        {openingHours && (
+          <div className="flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-100 p-3 text-amber-900">
+            <MdOutlineAccessTime className="shrink-0 text-violet-700" size={24} aria-hidden="true" />
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">
+                Horario de atención
+              </p>
+              <p className="font-semibold">{openingHours}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-auto">
+          {mapUrl ? (
+            <button
+              type="button"
+              onClick={() => setOpenFrame(true)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-lime-700 px-4 py-3 text-base font-semibold text-white transition hover:bg-lime-800 focus:outline-none focus:ring-4 focus:ring-lime-300"
+              aria-label={`Cómo llegar a ${address}`}
+            >
+              <BsGeoAlt size={22} aria-hidden="true" />
+              Cómo llegar
+            </button>
+          ) : (
+            <p className="text-sm text-amber-700">Ubicación no disponible</p>
+          )}
+        </div>
+      </div>
+
+      <Modal show={openFrame} onClose={() => setOpenFrame(false)}>
+        <Modal.Header>
+          <span className="text-2xl font-bold text-lime-700">Mapa del local</span>
+        </Modal.Header>
+        <Modal.Body>
+          {mapUrl && (
+            <div className="w-full overflow-hidden rounded-lg border-2 border-orange-200">
+              <iframe
+                title={`Mapa de ${branch.address || "la sucursal"}`}
+                width="100%"
+                height="450"
+                loading="lazy"
+                className="h-[350px] rounded-lg md:h-[450px]"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                src={`${mapUrl}&output=embed`}
+              />
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer className="flex justify-between">
+          <Button color="gray" onClick={() => setOpenFrame(false)}>
+            Cerrar
+          </Button>
+          <Button onClick={copyLocation}>Copiar dirección</Button>
+        </Modal.Footer>
+      </Modal>
+    </Card>
   );
 };

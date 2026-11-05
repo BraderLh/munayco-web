@@ -1,0 +1,66 @@
+{
+  "code": 200,
+  "message": "Execution successful",
+  "data": [
+    {
+      "status": 1,
+      "itemsTypeId": 24,
+      "code": "BEB1",
+      "itemType": "Bebida",
+      "image": "/images/catalog/bebidas/vino-borgona.jpg",
+      "name": "Vino Borgoña",
+      "size": "Botella",
+      "prices": "20"
+    },
+    {
+      "status": 1,
+      "itemsTypeId": 25,
+      "code": "BEB2",
+      "itemType": "Bebida",
+      "image": "/images/catalog/bebidas/vino-mistela.jpg",
+      "name": "Vino Mistela",
+      "size": "Botella",
+      "prices": "20"
+    },
+    {
+      "status": 1,
+      "itemsTypeId": 26,
+      "code": "BEB3",
+      "itemType": "Bebida",
+      "image": "/images/catalog/bebidas/vino-de-higo.jpg",
+      "name": "Vino de Higo",
+      "size": "Botella",
+      "prices": "20"
+    },
+    {
+      "status": 1,
+      "itemsTypeId": 27,
+      "code": "BEB4",
+      "itemType": "Bebida",
+      "image": "/images/catalog/bebidas/vino-perfecto-amor.jpg",
+      "name": "Vino Perfecto Amor",
+      "size": "Botella",
+      "prices": "22"
+    },
+    {
+      "status": 1,
+      "itemsTypeId": 28,
+      "code": "BEB5",
+      "itemType": "Bebida",
+      "image": "/images/catalog/bebidas/vino-rose.jpg",
+      "name": "Vino Rosé",
+      "size": "Botella",
+      "prices": "20"
+    },
+    {
+      "status": 1,
+      "itemsTypeId": 29,
+      "code": "BEB6",
+      "itemType": "Bebida",
+      "image": "/images/catalog/bebidas/sangria.jpg",
+      "name": "Sangría",
+      "size": "Jarra",
+      "prices": "20"
+    }
+  ]
+}

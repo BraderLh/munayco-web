@@ -1,135 +1,275 @@
 "use client";
 
-import React from "react";
-import { Card, Carousel, Modal } from "flowbite-react";
-import { FaRegHandPointLeft, FaRegHandPointRight } from "react-icons/fa";
-import Image from "next/image";
-import { useState } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { Card, Modal } from "flowbite-react";
+import { useMemo, useState } from "react";
+import { BsDash, BsPlus } from "react-icons/bs";
+import { useCart } from "@/context/CartContext";
+import { formatPen } from "@/utils/currency";
+
+function parseValues(value) {
+  if (Array.isArray(value)) {
+    return value.map((entry) => String(entry).trim()).filter(Boolean);
+  }
+
+  return typeof value === "string"
+    ? value.split(",").map((entry) => entry.trim()).filter(Boolean)
+    : [];
+}
 
 export const ItemType = ({ item }) => {
-  const [pizzaModal, setPizzaModal] = useState(false);
-  const splitPrices = item.prices.split(",");
-  let convertedPrices = splitPrices.map((numStr) =>
-    parseFloat(numStr).toFixed(2)
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedQuantities, setSelectedQuantities] = useState({});
+  const { addItem } = useCart();
+  const sizes = useMemo(() => parseValues(item.size), [item.size]);
+  const prices = useMemo(() => parseValues(item.prices), [item.prices]);
+  const variants = useMemo(
+    () =>
+      prices
+        .map((price, index) => ({
+          size: sizes[index] || "Presentación única",
+          price: Number(price),
+        }))
+        .filter((variant) =>
+          Number.isFinite(variant.price) && variant.price > 0
+        ),
+    [prices, sizes]
   );
+  const selectedCount = useMemo(
+    () =>
+      variants.reduce(
+        (total, _variant, index) => total + (selectedQuantities[index] || 0),
+        0
+      ),
+    [selectedQuantities, variants]
+  );
+  const selectedTotal = useMemo(
+    () =>
+      variants.reduce(
+        (total, variant, index) =>
+          total + variant.price * (selectedQuantities[index] || 0),
+        0
+      ),
+    [selectedQuantities, variants]
+  );
+  const imageUrl =
+    typeof item.image === "string" && item.image.trim() ? item.image : null;
+  const itemLabel = item.itemType || "Producto";
+  const imageAlt = item.name
+    ? `${itemLabel} ${item.name}`
+    : "Producto del catálogo";
+
+  const updateSelectedQuantity = (variantIndex, change) => {
+    setSelectedQuantities((currentQuantities) => ({
+      ...currentQuantities,
+      [variantIndex]: Math.max(
+        0,
+        (currentQuantities[variantIndex] || 0) + change
+      ),
+    }));
+  };
+
+  const handleAddSelectedToCart = () => {
+    variants.forEach((variant, index) => {
+      const quantity = selectedQuantities[index] || 0;
+
+      if (quantity > 0) {
+        addItem(item, variant, quantity);
+      }
+    });
+
+    setSelectedQuantities({});
+    setIsOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedQuantities({});
+    setIsOpen(false);
+  };
 
   return (
-    <div>
-      <Card
-        className="max-w-sm h-[505px] bg-amber-200 border border-solid border-orange-300"
-        imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        renderImage={() => (
-          <Image
-            width={400}
-            height={300}
-            src={item.image}
-            priority={true}
-            alt={`item-${item.itemsTypeId}`}
-            style={{
-              height: "auto",
-              maxWidth: "100%",
-            }}
-            className="rounded-md"
-          />
+    <Card className="flex h-full flex-col overflow-hidden border border-orange-300 bg-amber-200">
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt={imageAlt}
+          loading="lazy"
+          className="aspect-[3/2] w-full rounded-md object-cover"
+        />
+      ) : (
+        <div className="flex h-56 items-center justify-center rounded-md bg-amber-100 text-center text-sm text-amber-700">
+          Imagen no disponible
+        </div>
+      )}
+
+      <div className="flex flex-1 flex-col gap-3">
+        <div>
+          {item.itemType && (
+            <span className="text-sm font-semibold uppercase tracking-wide text-lime-700">
+              {item.itemType}
+            </span>
+          )}
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-rose-600">
+            {item.name || "Producto sin nombre"}
+          </h2>
+        </div>
+
+        {variants.length > 0 && (
+          <div
+            className="flex flex-wrap gap-2"
+            aria-label="Precios disponibles"
+          >
+            {variants.map((variant) => (
+              <span
+                key={`${variant.size}-${variant.price}`}
+                className="inline-flex items-center gap-1 rounded-full border border-amber-500 bg-amber-100 px-3 py-1.5 text-sm text-amber-950"
+              >
+                <span className="font-medium text-green-800">
+                  {variant.size}
+                </span>
+                <span aria-hidden="true">·</span>
+                <strong>{formatPen(variant.price)}</strong>
+              </span>
+            ))}
+          </div>
         )}
-        // imgSrc={item.image}
-      >
-        <div className="flex flex-col gap-y-3">
-          <div className="text-3xl">
-            <h2 className="font-semibold tracking-tight text-rose-600 dark:text-rose-200">
-              {item.name}
-            </h2>
-          </div>
-          <div className="text-xl">
-            <h3 className="text-green-600 dark:text-green-200">{item.size}</h3>
-          </div>
-          <div className="text-lg">
-            <p className="italic truncate text-pretty h-[56px]">{item.ingredients}</p>
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-semibold text-amber-500 dark:text-amber-200">
-            S/. {convertedPrices.join(" / ")}
+
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          disabled={variants.length === 0}
+          className="mt-auto rounded-lg bg-orange-500 px-5 py-2.5 text-center font-semibold text-white transition hover:bg-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-300 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Pedir
+        </button>
+      </div>
+
+      <Modal dismissible show={isOpen} onClose={handleCloseModal}>
+        <Modal.Header className="bg-orange-400">
+          <span className="text-2xl font-bold text-red-700">
+            {item.name || "Detalle del producto"}
           </span>
-        </div>
-        <div className="flex justify-end">
-          <a
-            href="#"
-            onClick={() => setPizzaModal(true)}
-            className="rounded-lg bg-orange-500 px-5 py-2.5 text-center text-base font-medium text-white hover:bg-orange-700 
-            focus:outline-none focus:ring-4 focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
-          >
-            Ver más detalles
-          </a>
-          <Modal
-            dismissible
-            show={pizzaModal}
-            onClose={() => setPizzaModal(false)}
-          >
-            <Modal.Header className="bg-orange-400 dark:bg-yellow-600 "><div className="font-bold  text-2xl text-red-600 dark:text-red-100">{item.name}</div></Modal.Header>
-            <Modal.Body className="bg-amber-200">
-              <div className="flex flex-col">
-                <div className="h-100 w-98">
-                  <div className="h-56 md:h-64 xl:h-72">
-                    <Carousel leftControl={<FaRegHandPointLeft color="white" size={40}/>} rightControl={<FaRegHandPointRight color="white" size={40}/>}>
-                      <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" alt="..." />
-                      <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />
-                      <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
-                      <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." />
-                      <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." />
-                    </Carousel>
-                  </div>
-                </div>
-                <div className="my-2 border-2 border-dashed border-lime-500 p-2 rounded-md">
-                  <h2 className="mb-2 text-xl font-semibold text-green-600 dark:text-lime-200">Ingredientes</h2>
-                    <p className="font-medium italic">{item.ingredients}</p>
-                </div>
-                <div className="container w-full h-auto my-2 p-2 border-2 border-lime-500 border-dashed rounded-md">
-                  <table className="w-full border-separate border-spacing-2 border border-amber-600 bg-amber-300 rounded-lg">
-                    <thead className="bg-orange-500">
-                      <tr className="text-white text-lg">
-                        <th className="border rounded-md border-amber-400">Tamaño</th>
-                        <th className="border rounded-md border-amber-400">Piezas</th>
-                        <th className="border rounded-md border-amber-400">Precio</th>
+        </Modal.Header>
+        <Modal.Body className="bg-amber-50">
+          <div className="space-y-4">
+            {imageUrl && (
+              <img
+                src={imageUrl}
+                alt={imageAlt}
+                className="max-h-80 w-full rounded-md object-contain"
+              />
+            )}
+
+            {item.ingredients && (
+              <div className="rounded-md border-2 border-dashed border-lime-500 p-3">
+                <h3 className="mb-2 text-xl font-semibold text-green-700">
+                  Ingredientes
+                </h3>
+                <p className="font-medium italic">{item.ingredients}</p>
+              </div>
+            )}
+
+            {variants.length > 0 && (
+              <div className="rounded-md border-2 border-dashed border-lime-500 p-3">
+                <h3 className="mb-2 text-xl font-semibold text-green-700">
+                  Precios disponibles
+                </h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-separate border-spacing-1 border border-amber-600 bg-amber-300">
+                    <thead className="bg-orange-500 text-left text-white">
+                      <tr>
+                        <th className="p-2">Tamaño</th>
+                        <th className="p-2">Precio</th>
+                        <th className="p-2 text-center">Cantidad</th>
+                        <th className="p-2 text-right">Subtotal</th>
                       </tr>
                     </thead>
-                    <tbody className="bg-amber-100 text-center">
-                      <tr>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">Personal</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">4 porciones</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">S/.{convertedPrices[0]}</td>
-                      </tr>
-                      <tr>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">Mediana</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">8 porciones</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">S/.{convertedPrices[1]}</td>
-                      </tr>
-                      <tr>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">Familiar</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">12 porciones</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2 py-1">S/.{convertedPrices[2]}</td>
-                      </tr>
-                      <tr>
-                        <td className="border-2 border-dotted border-amber-600 px-2">Extra Familiar</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2">16 porciones</td>
-                        <td className="border-2 border-dotted border-amber-600 px-2">S/.50.00 (aprox)</td>
-                      </tr>
+                    <tbody className="bg-amber-100">
+                      {variants.map((variant, index) => {
+                        const quantity = selectedQuantities[index] || 0;
+
+                        return (
+                          <tr key={`${variant.size}-${variant.price}`}>
+                            <td className="border border-amber-400 p-2">
+                              {variant.size}
+                            </td>
+                            <td className="border border-amber-400 p-2">
+                              {formatPen(variant.price)}
+                            </td>
+                            <td className="border border-amber-400 p-2">
+                              <div className="flex items-center justify-center gap-1">
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    updateSelectedQuantity(index, -1)
+                                  }
+                                  disabled={quantity === 0}
+                                  className="rounded-md bg-amber-200 p-2 text-amber-950 hover:bg-amber-300 focus:outline-none focus:ring-2 focus:ring-lime-500 disabled:cursor-not-allowed disabled:opacity-40"
+                                  aria-label={`Reducir cantidad de ${item.name} ${variant.size}`}
+                                >
+                                  <BsDash aria-hidden="true" />
+                                </button>
+                                <span
+                                  className="min-w-8 text-center font-semibold"
+                                  aria-live="polite"
+                                >
+                                  {quantity}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    updateSelectedQuantity(index, 1)
+                                  }
+                                  className="rounded-md bg-lime-700 p-2 text-white hover:bg-lime-800 focus:outline-none focus:ring-2 focus:ring-lime-500"
+                                  aria-label={`Aumentar cantidad de ${item.name} ${variant.size}`}
+                                >
+                                  <BsPlus aria-hidden="true" />
+                                </button>
+                              </div>
+                            </td>
+                            <td className="border border-amber-400 p-2 text-right font-semibold">
+                              {quantity > 0
+                                ? formatPen(variant.price * quantity)
+                                : "—"}
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
               </div>
-            </Modal.Body>
-            <Modal.Footer className="justify-end bg-orange-400">
-              <button type="button" onClick={() => setPizzaModal(false)} 
-                className="text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 
-                font-medium rounded-full text-sm md:text-base px-5 py-2.5 text-center me-2 mb-2 
-                dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                Cerrar
-              </button>
-            </Modal.Footer>
-          </Modal>
-        </div>
-      </Card>
-    </div>
+            )}
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="flex-col gap-3 bg-amber-100 sm:flex-row sm:items-center sm:justify-between">
+          <div className="w-full sm:w-auto">
+            <p className="text-sm font-semibold text-red-900">
+              {selectedCount} {selectedCount === 1 ? "unidad" : "unidades"}
+            </p>
+            <p className="text-xl font-bold text-red-800">
+              Total: {formatPen(selectedTotal)}
+            </p>
+          </div>
+          <div className="flex w-full flex-col-reverse gap-2 sm:w-auto sm:flex-row">
+            <button
+              type="button"
+              onClick={handleCloseModal}
+              className="rounded-full bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              onClick={handleAddSelectedToCart}
+              disabled={selectedCount === 0}
+              className="rounded-full bg-lime-700 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-lime-800 focus:outline-none focus:ring-4 focus:ring-lime-300 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              Agregar al carrito
+            </button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+    </Card>
   );
 };

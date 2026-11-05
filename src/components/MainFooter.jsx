@@ -11,8 +11,13 @@ import {
   BsWhatsapp,
   BsYoutube,
 } from "react-icons/bs";
+import { createWhatsAppUrl } from "@/services/whatsapp";
 
 export const MainFooter = () => {
+  const whatsappUrl =
+    createWhatsAppUrl("Hola Munayco, quisiera solicitar información.") ||
+    "/contact";
+
   return (
     <Footer container className="bg-amber-700 rounded-none">
       <div className="w-full">
@@ -25,24 +30,27 @@ export const MainFooter = () => {
               name=""
               className="w-full h-max"
             /> */}
-            <Image src={"/images/logo/logo.png"} alt="Munayco logo" width={200} height={200} style={{
-              width: 'max-content',
-              height: 'auto'
-            }}/>
+            <Image
+              src="/images/logo/logo-board-munayco.png"
+              alt="Logo Munayco sobre una tabla de pizza"
+              width={200}
+              height={200}
+              className="h-full w-full object-contain"
+            />
           </div>
           <div className="grid grid-cols-2 gap-6 sm:mt-4 sm:grid-cols-2 sm:gap-6">
             <div>
-              <Footer.Title title="A cerca de" className="text-green-300" />
+              <Footer.Title title="A cerca de" className="text-white text-lg" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#" className="text-yellow-200">Munayco</Footer.Link>
+                <Footer.Link href="/about" className="text-yellow-100 text-base">Munayco</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Información legal" className="text-green-300" />
+              <Footer.Title title="Información legal" className="text-white text-lg" />
               <Footer.LinkGroup col>
-                <Footer.Link href="#" className="text-yellow-200">Política de privacidad</Footer.Link>
-                <Footer.Link href="#" className="text-yellow-200">Terminos &amp; Condiciones</Footer.Link>
-                <Footer.Link href="#" className="text-yellow-200">Cookies</Footer.Link>
+                <Footer.Link href="#" className="text-yellow-100 text-base">Política de privacidad</Footer.Link>
+                <Footer.Link href="#" className="text-yellow-100 text-base">Terminos &amp; Condiciones</Footer.Link>
+                <Footer.Link href="#" className="text-yellow-100 text-base">Cookies</Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>
@@ -51,7 +59,7 @@ export const MainFooter = () => {
         <div className="w-full sm:flex sm:items-center sm:justify-between">
           <Footer.Copyright href="#" by="Munayco" year={2024}  className="text-green-200"/>
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="https://api.whatsapp.com/send?phone=973643385" target="_blank" icon={BsWhatsapp} className="text-yellow-100 hover:text-green-400"/>
+            <Footer.Icon href={whatsappUrl} target="_blank" icon={BsWhatsapp} className="text-yellow-100 hover:text-green-400"/>
             <Footer.Icon href="https://www.facebook.com/people/Munayco-Pizzas/100070075998203/" target="_blank" icon={BsFacebook} className="text-yellow-100 hover:text-blue-600"/>
             <Footer.Icon href="#" icon={BsInstagram} className="text-yellow-100 hover:text-pink-500"/>
             <Footer.Icon href="#" icon={BsTwitter} className="text-yellow-100 hover:text-sky-500"/>

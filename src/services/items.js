@@ -1,26 +1,51 @@
-const API_URL = "http://localhost:8080/balh/munayco/api/v1/itemType";
+import { ApiError, apiRequest } from "@/services/api/client";
+import appetizersFixture from "@/data/aperitivos.json";
+import beveragesFixture from "@/data/bebidas.json";
+import lasagnasFixture from "@/data/lasagnas.json";
+import pizzasFixture from "@/data/pizzas.json";
+
+const localCatalogFixtures = [
+  pizzasFixture,
+  lasagnasFixture,
+  appetizersFixture,
+  beveragesFixture,
+];
+
+function getFixtureItems(fixture) {
+  const data = fixture?.data;
+
+  if (!Array.isArray(data)) {
+    throw new ApiError("El catálogo local no tiene un formato válido.", {
+      type: "payload",
+    });
+  }
+
+  return data;
+}
 
 export async function fetchItems() {
-  try {
-    const options = {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-      next: { revalidate: 3600 },
-    };
-
-    const response = await fetch(API_URL, options);
-
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-
-    return response.json();
-
-  } catch (error) {
-    console.error("ERROR: " + error);
-  }
+  return localCatalogFixtures
+    .flatMap(getFixtureItems)
+    .map((item) => ({
+      ...item,
+      active: item.active ?? item.status === 1,
+    }))
+    .filter((item) => item.active === true);
 }
+
+export async function fetchItemsFromApi() {
+  const data = await apiRequest("/api/v1/itemType", {
+    method: "GET",
+    cache: "no-store",
+  });
+
+  if (!Array.isArray(data)) {
+    throw new ApiError("El catálogo recibido no tiene un formato válido.", {
+      type: "payload",
+    });
+  }
+
+  return data.filter((item) => item?.active === true);
+}
+
+export const getCatalogItems = fetchItems;

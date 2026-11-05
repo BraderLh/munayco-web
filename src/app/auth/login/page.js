@@ -23,28 +23,18 @@ export default function LoginPage() {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    console.log("Enviando credenciales");
-    const promiseLogin = login(form);
-    const response = await promiseLogin;
-    localStorage.setItem('auth-token', response.token);
-    showToastLogin(promiseLogin);
-    checkToken(response.token);
-  }
-
-  const checkToken = (token) => {
-    if (!token) {
-      router.push('/auth/login');
-      return
-    }
-  }
-
-  const showToastLogin = (dataPromise) => {
-    toast.promise(dataPromise, {
+    const loginPromise = login(form);
+    toast.promise(loginPromise, {
       loading: 'Iniciando sesión ...',
-      success: () => {
+      success: (response) => {
+        const accessToken = response?.accessToken ?? response?.token;
+        if (!accessToken) {
+          throw new Error('El servidor no devolvió un token válido');
+        }
+        localStorage.setItem('auth-token', accessToken);
         setForm(initialState);
         router.push('/')
-        return 'Sesión iniciada existosamente';
+        return 'Sesión iniciada exitosamente';
       },
       error: 'Error en iniciar sesión: datos inválidos o no existen'
     })
@@ -73,7 +63,7 @@ export default function LoginPage() {
                 type="email"
                 placeholder="ejemplo@gmail.com"
                 required
-                autoComplete="given-email"
+                autoComplete="email"
                 name="email"
                 id="emailId"
                 onChange={handleChange}
@@ -88,6 +78,7 @@ export default function LoginPage() {
                 className="w-full border p-3 shadow-sm rounded-md border-lime-600 focus:border-lime-500 focus:ring-1 focus:ring-lime-500
               invalid:text-pink-600 focus:invalid:border-red-600 focus:invalid:ring-pink-600"
                 type="password"
+                autoComplete="current-password"
                 placeholder="contrAseñ@1234"
                 required
                 name="password"

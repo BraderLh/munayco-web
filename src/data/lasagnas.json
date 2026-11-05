@@ -1,0 +1,26 @@
+{
+  "code": 200,
+  "message": "Execution successful",
+  "data": [
+    {
+      "status": 1,
+      "itemsTypeId": 20,
+      "code": "LAS1",
+      "itemType": "Lasaña",
+      "image": "/images/catalog/lasagnas/lasagna-de-carne.jpg",
+      "name": "De Carne",
+      "size": "Porción",
+      "prices": "25"
+    },
+    {
+      "status": 1,
+      "itemsTypeId": 21,
+      "code": "LAS2",
+      "itemType": "Lasaña",
+      "image": "/images/catalog/lasagnas/lasagna-vegetariana.jpg",
+      "name": "Vegetariana",
+      "size": "Porción",
+      "prices": "24"
+    }
+  ]
+}

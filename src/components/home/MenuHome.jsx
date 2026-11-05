@@ -1,61 +1,49 @@
-import React from "react";
 import Image from "next/image";
 import { Card } from "flowbite-react";
 
+const menus = [
+  {
+    title: "Menú general",
+    description:
+      "Disfruta una selección de pizzas clásicas y bebidas para compartir con tus amigos.",
+    image: "/images/menu/menu-general-original.png",
+    alt: "Pizza de pepperoni y mozzarella del menú general",
+  },
+  {
+    title: "Menú familiar",
+    description:
+      "Comparte una pizza familiar acompañada de entradas y bebidas para todos.",
+    image: "/images/menu/menu-familiar-original.png",
+    alt: "Pizza familiar con ensalada, palitos de pan y bebidas",
+  },
+];
+
 export const MenuHome = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 content-stretch">
-      <div className="w-full h- justify-self-center md:justify-self-stretch">
+    <div className="grid w-full grid-cols-1 place-items-stretch gap-4 md:grid-cols-2">
+      {menus.map((menu) => (
         <Card
-          className="bg-yellow-200 max-w-sm m-4 border-2 border-dashed border-orange-400"
-          renderImage={() => (
-            <Image
-              width={250}
-              height={200}
-              src="/images/menu/general.jpg"
-              alt="menu-1"
-              className="rounded-md"
-              style={{
-                width: 'auto'
-              }}
-            />
-          )}
+          key={menu.title}
+          className="mx-auto w-full max-w-none border-2 border-dashed border-orange-400 bg-yellow-200 [&>div:last-child]:gap-2 [&>div:last-child]:p-4 md:max-w-none md:[&>div:last-child]:gap-4 md:[&>div:last-child]:p-6"
           horizontal
-        >
-          <h5 className="text-2xl font-bold tracking-tight text-lime-700 dark:text-lime-200">
-            Menu general
-          </h5>
-          <p className="font-normal text-rose-700 dark:text-gray-400">
-            Ven y disfruta con tu amigos del menu general que ofrece Munayco pizzas, ofrece una variedad de pizzas clásicas y bebidas.
-          </p>
-        </Card>
-      </div>
-      <div className="w-full h-auto justify-self-center md:justify-self-stretch">
-        <Card
-          className="bg-yellow-200 max-w-sm m-4 border-2 border-dashed border-orange-400"
           renderImage={() => (
-            <Image
-              width={250}
-              height={240}
-              src="/images/menu/familiar.jpg"
-              alt="menu-2"
-              className="rounded-md"
-              style={{
-                width: 'auto',
-                height: '250px'
-              }}
-            />
+            <div className="relative h-64 w-full shrink-0 overflow-hidden rounded-t-lg sm:h-72 md:h-auto md:w-64 md:self-stretch md:rounded-l-lg md:rounded-tr-none">
+              <Image
+                src={menu.image}
+                alt={menu.alt}
+                fill
+                sizes="(max-width: 767px) calc(100vw - 3rem), 256px"
+                className="object-cover"
+              />
+            </div>
           )}
-          horizontal
         >
-          <h5 className="text-2xl font-bold tracking-tight text-lime-700 dark:text-lime-200">
-            Menu familiar
-          </h5>
-          <p className="font-normal text-rose-800 dark:text-gray-400">
-            Ven y disfruta con tu familia del variado menu que ofrece Munayco pizzas, con el menu familiar que ofrece Munayco Pizzas.
-          </p>
+          <h2 className="text-2xl font-bold tracking-tight text-lime-700">
+            {menu.title}
+          </h2>
+          <p className="font-normal text-rose-800">{menu.description}</p>
         </Card>
-      </div>
+      ))}
     </div>
   );
 };

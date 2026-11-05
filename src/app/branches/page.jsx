@@ -1,46 +1,34 @@
-"use client";
 import { Header } from "@/components/Header";
-import React from "react";
-import BranchWrapper from "@/components/branches/BranchWrapper";
 import BranchList from "@/components/branches/BranchList";
 
 export default function BranchesPage() {
   return (
     <>
       <Header />
-      <main className="grid gap-4 grid-flow-row auto-rows-max md:auto-rows-min h-auto">
-        <div className="m-4 h-full">
-          <section className="rounded-md bg-orange-500 p-4 container mx-auto">
-            <h1 className="font-semibold text-2xl text-amber-300 mb-4">Locales</h1>
-            <p className="bg-orange-300 border-2 border-dashed border-amber-200 rounded-lg p-5 text-pretty">
-              Nuestro local está cuidadosamente diseñado para crear un ambiente
-              acogedor y moderno. Los tonos cálidos y la iluminación suave crean
-              una atmósfera íntima y acogedora, perfecta para una comida
-              relajada con amigos y familiares. Las mesas y sillas están
-              dispuestas de manera que te permitan disfrutar de tu comida con
-              comodidad, mientras que nuestra área de espera ofrece un espacio
-              cómodo para relajarte mientras esperas tu pedido.
-              <br />
-              En Munayco Pizza, no se trata solo de la comida, se trata de la
-              experiencia. Desde el momento en que entras en nuestro local hasta
-              el último bocado de tu pizza, nos esforzamos por ofrecerte un
-              servicio excepcional y una experiencia inolvidable. Ven y únete a
-              nosotros en Munayco Pizza, donde cada comida es una celebración de sabor
-              y hospitalidad.
-            </p>
-          </section>
-        </div>
-        <div className="flex justify-end mr-[10%]">
-          <BranchWrapper />
-        </div>
-        <div className="container mx-auto w-full">
+      <main className="container mx-auto px-4 py-6 md:px-6">
+        <section
+          className="mb-8 rounded-lg bg-orange-400 p-5 shadow-sm md:p-8"
+          aria-labelledby="branches-title"
+        >
+          <p className="text-sm font-semibold uppercase tracking-wider text-amber-300">
+            Munayco Pizzas
+          </p>
+          <h1 id="branches-title" className="mt-1 text-3xl font-bold text-amber-100 md:text-4xl">
+            Nuestras sucursales
+          </h1>
+          <p className="mt-4 max-w-4xl rounded-lg border-2 border-dashed border-amber-200 bg-orange-300 p-5 text-base leading-relaxed text-amber-800">
+            Encuentra el local más cercano y disfruta una experiencia acogedora
+            para compartir tus pizzas con amigos y familia. Consulta la dirección,
+            el horario y la ubicación de cada sucursal.
+          </p>
+        </section>
+
+        <section aria-labelledby="branches-list-title">
+          <h2 id="branches-list-title" className="mb-4 text-2xl font-bold text-lime-800">
+            Locales disponibles
+          </h2>
           <BranchList />
-        </div>
-        <div>
-          <div className="bg-orange-400">
-            <section></section>
-          </div>
-        </div>
+        </section>
       </main>
     </>
   );

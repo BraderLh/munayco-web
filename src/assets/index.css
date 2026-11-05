@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
-
 :root {
-    --font-family: "Fredoka", sans-serif;
+    --font-family: "Trebuchet MS", "Segoe UI", sans-serif;
     --font-optical-sizing: auto;
     --font-size: 16px;
     --font-weight-regular: 400;
@@ -50,7 +48,7 @@ html {
 body {
     background-color: var(--eigth-color);
     color: var(--ninth-color);
-    /*font-family: var(--font-family);*/
+    font-family: var(--font-family);
     /*display: flex;*/
     justify-content: center;
     min-height: 100vh;
