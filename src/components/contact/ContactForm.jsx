@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Button, Label, TextInput, Textarea } from "flowbite-react";
 import { BsSend } from "react-icons/bs";
 
 const initialValues = {
@@ -11,6 +10,17 @@ const initialValues = {
   phone: "",
   message: "",
 };
+
+const baseFieldClass =
+  "block w-full rounded-lg border bg-gray-50 p-3 text-gray-900 outline-none transition placeholder:text-gray-500 focus:ring-2";
+
+function fieldClass(hasError, extraClass = "") {
+  const stateClass = hasError
+    ? "border-red-500 focus:border-red-600 focus:ring-red-200"
+    : "border-gray-300 focus:border-lime-600 focus:ring-lime-200";
+
+  return `${baseFieldClass} ${stateClass} ${extraClass}`;
+}
 
 function validateForm(values) {
   const errors = {};
@@ -101,14 +111,10 @@ export const ContactForm = () => {
       onSubmit={handleSubmit}
     >
       <div className="col-span-2 md:col-span-1">
-        <div className="mb-2 block">
-          <Label
-            htmlFor="subject"
-            value="Asunto"
-            className="text-base md:text-xl"
-          />
-        </div>
-        <TextInput
+        <label htmlFor="subject" className="mb-2 block text-base md:text-xl">
+          Asunto
+        </label>
+        <input
           id="subject"
           type="text"
           placeholder="Asunto"
@@ -117,21 +123,18 @@ export const ContactForm = () => {
           value={values.subject}
           onBlur={() => markTouched("subject")}
           onChange={(event) => updateField("subject", event.target.value)}
-          color={getError("subject") ? "failure" : undefined}
+          className={fieldClass(Boolean(getError("subject")))}
+          aria-invalid={Boolean(getError("subject"))}
           aria-describedby={getError("subject") ? "subject-error" : undefined}
         />
         <FieldError id="subject-error" message={getError("subject")} />
       </div>
 
       <div className="col-span-2 md:col-span-1">
-        <div className="mb-2 block">
-          <Label
-            htmlFor="fullName"
-            value="Nombres y apellidos"
-            className="text-base md:text-xl"
-          />
-        </div>
-        <TextInput
+        <label htmlFor="fullName" className="mb-2 block text-base md:text-xl">
+          Nombres y apellidos
+        </label>
+        <input
           id="fullName"
           type="text"
           placeholder="Nombres y apellidos"
@@ -140,21 +143,18 @@ export const ContactForm = () => {
           value={values.fullName}
           onBlur={() => markTouched("fullName")}
           onChange={(event) => updateField("fullName", event.target.value)}
-          color={getError("fullName") ? "failure" : undefined}
+          className={fieldClass(Boolean(getError("fullName")))}
+          aria-invalid={Boolean(getError("fullName"))}
           aria-describedby={getError("fullName") ? "fullName-error" : undefined}
         />
         <FieldError id="fullName-error" message={getError("fullName")} />
       </div>
 
       <div className="col-span-2 md:col-span-1">
-        <div className="mb-2 block">
-          <Label
-            htmlFor="email"
-            value="Correo electrónico"
-            className="text-base md:text-xl"
-          />
-        </div>
-        <TextInput
+        <label htmlFor="email" className="mb-2 block text-base md:text-xl">
+          Correo electrónico
+        </label>
+        <input
           id="email"
           type="email"
           inputMode="email"
@@ -164,25 +164,22 @@ export const ContactForm = () => {
           value={values.email}
           onBlur={() => markTouched("email")}
           onChange={(event) => updateField("email", event.target.value)}
-          color={getError("email") ? "failure" : undefined}
+          className={fieldClass(Boolean(getError("email")))}
+          aria-invalid={Boolean(getError("email"))}
           aria-describedby={getError("email") ? "email-error" : undefined}
         />
         <FieldError id="email-error" message={getError("email")} />
       </div>
 
       <div className="col-span-2 md:col-span-1">
-        <div className="mb-2 block">
-          <Label
-            htmlFor="phone"
-            value="Número telefónico"
-            className="text-base md:text-xl"
-          />
-        </div>
+        <label htmlFor="phone" className="mb-2 block text-base md:text-xl">
+          Número telefónico
+        </label>
         <div className="relative">
-          <span className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center border-r border-gray-300 bg-gray-100 px-3 text-sm text-gray-700">
+          <span className="pointer-events-none absolute inset-y-0 left-0 z-10 flex items-center rounded-l-lg border-r border-gray-300 bg-gray-100 px-3 text-sm text-gray-700">
             +51
           </span>
-          <TextInput
+          <input
             id="phone"
             type="tel"
             inputMode="numeric"
@@ -193,24 +190,20 @@ export const ContactForm = () => {
             value={values.phone}
             onBlur={() => markTouched("phone")}
             onChange={(event) => updateField("phone", event.target.value)}
-            color={getError("phone") ? "failure" : undefined}
+            className={fieldClass(Boolean(getError("phone")), "pl-16")}
+            aria-invalid={Boolean(getError("phone"))}
             aria-describedby={getError("phone") ? "phone-error" : undefined}
-            className="pl-14"
           />
         </div>
         <FieldError id="phone-error" message={getError("phone")} />
       </div>
 
       <div className="col-span-2">
-        <div className="mb-2 block">
-          <Label
-            htmlFor="message"
-            value="Mensaje"
-            className="text-base md:text-xl"
-          />
-        </div>
+        <label htmlFor="message" className="mb-2 block text-base md:text-xl">
+          Mensaje
+        </label>
         <div className="relative">
-          <Textarea
+          <textarea
             id="message"
             placeholder="Escribe aquí tu comentario o consulta ..."
             required
@@ -221,15 +214,15 @@ export const ContactForm = () => {
             onChange={(event) =>
               updateField("message", event.target.value.slice(0, 300))
             }
-            color={getError("message") ? "failure" : undefined}
+            className={fieldClass(Boolean(getError("message")), "pb-8 text-base md:text-lg")}
+            aria-invalid={Boolean(getError("message"))}
             aria-describedby={
               getError("message") ? "message-error" : "message-counter"
             }
-            className="pb-7 text-base md:text-lg"
           />
           <span
             id="message-counter"
-            className="pointer-events-none absolute bottom-2 right-3 text-xs text-gray-600"
+            className="pointer-events-none absolute bottom-3 right-3 text-xs text-gray-600"
             aria-live="polite"
           >
             {values.message.length}/300
@@ -239,15 +232,13 @@ export const ContactForm = () => {
       </div>
 
       <div className="col-span-2 py-4 md:py-8">
-        <Button
+        <button
           type="submit"
-          color="success"
-          size="lg"
-          className="mx-auto h-15 w-56 md:h-auto md:w-64 lg:w-72 xl:w-96"
+          className="mx-auto flex w-56 items-center justify-center rounded-lg bg-emerald-700 px-5 py-3 font-semibold text-white transition hover:bg-emerald-800 focus:outline-none focus:ring-4 focus:ring-emerald-300 md:w-64 lg:w-72 xl:w-96"
         >
-          <BsSend className="mr-2 h-5 w-7" />
+          <BsSend className="mr-2 h-5 w-7" aria-hidden="true" />
           Enviar
-        </Button>
+        </button>
       </div>
     </form>
   );

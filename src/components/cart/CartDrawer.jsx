@@ -1,7 +1,7 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { BsCart3, BsDash, BsPlus, BsTrash, BsWhatsapp, BsX } from "react-icons/bs";
 import { useCart } from "@/context/CartContext";
 import { createCartMessage, createWhatsAppUrl } from "@/services/whatsapp";
@@ -104,11 +104,15 @@ export function CartDrawer() {
                   className="flex gap-3 rounded-lg border border-amber-300 bg-white p-3"
                 >
                   {item.image && (
-                    <img
-                      src={item.image}
-                      alt=""
-                      className="h-20 w-24 shrink-0 rounded-md object-cover"
-                    />
+                    <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-md">
+                      <Image
+                        src={item.image}
+                        alt=""
+                        fill
+                        sizes="96px"
+                        className="object-cover"
+                      />
+                    </div>
                   )}
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-semibold text-rose-700">

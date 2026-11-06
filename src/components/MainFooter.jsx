@@ -1,11 +1,7 @@
-"use client";
-
-import { Footer } from "flowbite-react";
 import Image from "next/image";
+import Link from "next/link";
 import {
-  BsDribbble,
   BsFacebook,
-  BsGithub,
   BsInstagram,
   BsTwitter,
   BsWhatsapp,
@@ -13,60 +9,117 @@ import {
 } from "react-icons/bs";
 import { createWhatsAppUrl } from "@/services/whatsapp";
 
+const socialLinkClass =
+  "rounded-full p-2 text-xl text-yellow-100 transition focus:outline-none focus:ring-2 focus:ring-yellow-100";
+
 export const MainFooter = () => {
   const whatsappUrl =
     createWhatsAppUrl("Hola Munayco, quisiera solicitar información.") ||
     "/contact";
 
   return (
-    <Footer container className="bg-amber-700 rounded-none">
-      <div className="w-full">
-        <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div className="w-[200px] h-[200px] bg-amber-800 rounded-full">
-            {/* <Footer.Brand
-              href="/"
-              src="/images/logo/logo.png"
-              alt="Munayco Logo"
-              name=""
-              className="w-full h-max"
-            /> */}
+    <footer className="rounded-none bg-amber-600 p-6 md:p-8">
+      <div className="mx-auto w-full max-w-screen-xl">
+        <div className="grid gap-8 sm:grid-cols-[auto_1fr] sm:items-start">
+          <Link
+            href="/"
+            className="h-[180px] w-[180px] overflow-hidden rounded-full bg-amber-800"
+            aria-label="Ir al inicio de Munayco"
+          >
             <Image
-              src="/images/logo/logo-board-munayco.png"
+              src="/images/logo/logo-board-munayco.webp"
               alt="Logo Munayco sobre una tabla de pizza"
-              width={200}
-              height={200}
+              width={180}
+              height={180}
+              sizes="180px"
               className="h-full w-full object-contain"
             />
-          </div>
-          <div className="grid grid-cols-2 gap-6 sm:mt-4 sm:grid-cols-2 sm:gap-6">
+          </Link>
+
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:justify-self-end">
             <div>
-              <Footer.Title title="A cerca de" className="text-white text-lg" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="/about" className="text-yellow-100 text-base">Munayco</Footer.Link>
-              </Footer.LinkGroup>
+              <h2 className="mb-4 text-lg font-bold uppercase text-yellow-200">
+                Acerca de
+              </h2>
+              <Link
+                href="/about"
+                className="text-base text-white transition hover:text-yellow-200 hover:underline"
+              >
+                Munayco
+              </Link>
             </div>
             <div>
-              <Footer.Title title="Información legal" className="text-white text-lg" />
-              <Footer.LinkGroup col>
-                <Footer.Link href="#" className="text-yellow-100 text-base">Política de privacidad</Footer.Link>
-                <Footer.Link href="#" className="text-yellow-100 text-base">Terminos &amp; Condiciones</Footer.Link>
-                <Footer.Link href="#" className="text-yellow-100 text-base">Cookies</Footer.Link>
-              </Footer.LinkGroup>
+              <h2 className="mb-4 text-lg font-bold uppercase text-yellow-200">
+                Información legal
+              </h2>
+              <ul className="space-y-3 text-base text-white">
+                <li>
+                  <a href="#" className="hover:text-yellow-200 hover:underline">
+                    Política de privacidad
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-200 hover:underline">
+                    Términos y condiciones
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-yellow-200 hover:underline">
+                    Cookies
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <Footer.Divider className="border-amber-200"/>
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright href="#" by="Munayco" year={2024}  className="text-green-200"/>
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href={whatsappUrl} target="_blank" icon={BsWhatsapp} className="text-yellow-100 hover:text-green-400"/>
-            <Footer.Icon href="https://www.facebook.com/people/Munayco-Pizzas/100070075998203/" target="_blank" icon={BsFacebook} className="text-yellow-100 hover:text-blue-600"/>
-            <Footer.Icon href="#" icon={BsInstagram} className="text-yellow-100 hover:text-pink-500"/>
-            <Footer.Icon href="#" icon={BsTwitter} className="text-yellow-100 hover:text-sky-500"/>
-            <Footer.Icon href="#" icon={BsYoutube} className="text-yellow-100 hover:text-red-600"/>
+
+        <div className="my-6 border-t border-amber-200" />
+
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-lg text-yellow-200">© 2024 Munayco</p>
+          <div className="flex flex-wrap gap-2">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${socialLinkClass} hover:bg-green-700 hover:text-white`}
+              aria-label="WhatsApp de Munayco"
+            >
+              <BsWhatsapp aria-hidden="true" />
+            </a>
+            <a
+              href="https://www.facebook.com/people/Munayco-Pizzas/100070075998203/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${socialLinkClass} hover:bg-blue-700 hover:text-white`}
+              aria-label="Facebook de Munayco"
+            >
+              <BsFacebook aria-hidden="true" />
+            </a>
+            <a
+              href="#"
+              className={`${socialLinkClass} hover:bg-pink-600 hover:text-white`}
+              aria-label="Instagram de Munayco"
+            >
+              <BsInstagram aria-hidden="true" />
+            </a>
+            <a
+              href="#"
+              className={`${socialLinkClass} hover:bg-sky-600 hover:text-white`}
+              aria-label="X de Munayco"
+            >
+              <BsTwitter aria-hidden="true" />
+            </a>
+            <a
+              href="#"
+              className={`${socialLinkClass} hover:bg-red-600 hover:text-white`}
+              aria-label="YouTube de Munayco"
+            >
+              <BsYoutube aria-hidden="true" />
+            </a>
           </div>
         </div>
       </div>
-    </Footer>
+    </footer>
   );
 };

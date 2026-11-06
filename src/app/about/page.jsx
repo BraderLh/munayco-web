@@ -1,5 +1,36 @@
 import Image from "next/image";
 
+const preparationSteps = [
+  {
+    number: "01",
+    title: "Preparamos la masa",
+    description: "Estiramos la masa artesanal hasta conseguir la base de cada pizza.",
+    image: "/images/aboutus/munayco-preparacion-v2.webp",
+    alt: "Preparación artesanal de la masa para pizza",
+  },
+  {
+    number: "02",
+    title: "Añadimos los ingredientes",
+    description: "Distribuimos la salsa, el queso y los ingredientes de cada receta.",
+    image: "/images/aboutus/proceso-ingredientes.webp",
+    alt: "Ingredientes frescos colocados sobre una pizza artesanal",
+  },
+  {
+    number: "03",
+    title: "Horneamos la pizza",
+    description: "El horno dora la masa y funde los sabores antes de servirla.",
+    image: "/images/aboutus/proceso-horneado.webp",
+    alt: "Pizza artesanal entrando a un horno encendido",
+  },
+  {
+    number: "04",
+    title: "Lista para compartir",
+    description: "Servimos la pizza recién horneada, cortada y lista para disfrutar.",
+    image: "/images/aboutus/proceso-pizza-lista.webp",
+    alt: "Pizza recién horneada servida sobre una tabla de madera",
+  },
+];
+
 const AboutUsPage = () => {
   return (
     <main className="container mx-auto px-4 py-8 md:px-6 md:py-12">
@@ -54,7 +85,7 @@ const AboutUsPage = () => {
             </div>
             <div className="relative min-h-[280px] lg:min-h-full">
               <Image
-                src="/images/aboutus/munayco-interior-v2.png"
+                src="/images/aboutus/munayco-interior-v2.webp"
                 alt="Interior acogedor de una pizzería Munayco con horno y pizza"
                 fill
                 priority
@@ -69,8 +100,8 @@ const AboutUsPage = () => {
           <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
             <div className="relative min-h-[280px] lg:order-first lg:min-h-full">
               <Image
-                src="/images/aboutus/munayco-preparacion-v2.png"
-                alt="Preparación artesanal de masa e ingredientes frescos para pizza"
+                src="/images/aboutus/munayco-preparacion-organizada-v2.webp"
+                alt="Masa en reposo e ingredientes organizados para preparar pizzas"
                 fill
                 sizes="(max-width: 1023px) 100vw, 48vw"
                 className="object-cover"
@@ -100,25 +131,53 @@ const AboutUsPage = () => {
 
         <section
           className="rounded-2xl border-2 border-dashed border-lime-500 bg-lime-50 p-4 shadow-sm md:p-6"
-          aria-labelledby="preparation-video-title"
+          aria-labelledby="preparation-process-title"
         >
-          <div className="mb-4 text-center">
+          <div className="mx-auto mb-6 max-w-3xl text-center">
             <p className="text-sm font-bold uppercase tracking-wider text-lime-700">
-              Conoce nuestro trabajo
+              De la masa a tu mesa
             </p>
-            <h2 id="preparation-video-title" className="mt-1 text-2xl font-bold text-amber-900">
-              Del horno a tu mesa
+            <h2
+              id="preparation-process-title"
+              className="mt-1 text-2xl font-bold text-amber-900 md:text-3xl"
+            >
+              Así preparamos tu pizza
             </h2>
+            <p className="mt-2 leading-relaxed text-amber-900">
+              Conoce los cuatro momentos que convierten nuestros ingredientes
+              en una pizza lista para compartir.
+            </p>
           </div>
-          <div className="aspect-video overflow-hidden rounded-xl border border-white bg-black shadow-md">
-            <iframe
-              src="https://www.youtube.com/embed/1BYHdXjjufU?si=94D2wWH53BF925tH"
-              allowFullScreen
-              title="Preparación de pizzas Munayco"
-              allow="accelerometer; autoplay"
-              className="h-full w-full"
-            />
-          </div>
+
+          <ol className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {preparationSteps.map((step) => (
+              <li
+                key={step.number}
+                className="group overflow-hidden rounded-xl border border-orange-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-amber-100">
+                  <Image
+                    src={step.image}
+                    alt={step.alt}
+                    fill
+                    sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-4">
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-lime-700 text-sm font-bold text-white">
+                    {step.number}
+                  </span>
+                  <h3 className="mt-3 text-xl font-bold text-lime-800">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-amber-900">
+                    {step.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </section>
       </div>
     </main>

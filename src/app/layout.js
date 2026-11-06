@@ -2,6 +2,7 @@ import "./globals.css";
 import { MainFooter } from "@/components/MainFooter";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { CartProvider } from "@/context/CartContext";
+import { SiteHeader } from "@/components/SiteHeader";
 
 export const metadata = {
   title: "Munayco Pizzas",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body>
         <CartProvider>
+          <SiteHeader />
           {children}
           <CartDrawer />
           <MainFooter/>

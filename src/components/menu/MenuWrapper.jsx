@@ -1,5 +1,6 @@
 "use client";
 import React, { useCallback, useState } from "react";
+import Image from "next/image";
 import { Controlled as ControlledZoom } from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
@@ -12,10 +13,14 @@ export const MenuWrapper = () => {
 
   return (
     <ControlledZoom isZoomed={isZoomed} onZoomChange={handleZoomChange}>
-      <img
+      <Image
         src="/images/menu/carta.jpg"
         alt="Carta de Munayco"
-        width={700}
+        width={993}
+        height={695}
+        sizes="(max-width: 767px) 100vw, 993px"
+        className="h-auto w-full max-w-[993px]"
+        unoptimized
       />
     </ControlledZoom>
   );

@@ -15,14 +15,14 @@ export const Header = () => {
     <>
       <header>
         <CartButton floating />
-        <nav className="bg-lime-600 border-b border-lime-700 dark:bg-lime-900 p-1 md:p-2 w-full z-20 top-0 start-0">
+        <nav className="bg-lime-600 border-b border-lime-700 p-1 md:p-2 w-full z-20 top-0 start-0">
           <div className="max-w-screen-xl flex flex-wrap mx-auto container items-center justify-between p-4">
             <div>
               <Link
                 href="/"
                 className="flex items-center space-x-3 rtl:space-x-reverse text-yellow-50 hover:text-yellow-400 mr-5"
               >
-                <span className="inline-flex font-bold text-4xl tracking-tight whitespace-nowrap dark:text-white">
+                <span className="inline-flex font-bold text-4xl tracking-tight whitespace-nowrap">
                   Munayc
                   <GiFullPizza
                     className="ml-1 mr-3"
@@ -41,7 +41,7 @@ export const Header = () => {
                   href="auth/login"
                   className="text-base p-4 leading-none border rounded text-white font-medium text-center border-white 
                   hover:border-transparent hover:text-lime-700 hover:font-bold focus:ring-4 focus:outline-none focus:ring-amber-100 
-                  hover:bg-white mt-4 mr-2 lg:mt-0 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
+                  hover:bg-white mt-4 mr-2 lg:mt-0"
                 >
                   Iniciar Sesión
                 </Link>
@@ -49,7 +49,7 @@ export const Header = () => {
                   href="auth/sigin"
                   className="text-base p-4 leading-none border rounded text-white font-medium text-center border-white 
                   hover:border-transparent hover:text-lime-700 hover:font-bold focus:ring-4 focus:outline-none focus:ring-amber-100
-                hover:bg-white mt-4 lg:mt-0 dark:bg-lime-600 dark:hover:bg-lime-700 dark:focus:ring-lime-800"
+                hover:bg-white mt-4 lg:mt-0"
                 >
                   Registrarme
                 </Link>
@@ -57,7 +57,7 @@ export const Header = () => {
               <button
                 data-collapse-toggle="navbar-cta"
                 type="button"
-                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                 aria-controls="navbar-cta"
                 aria-expanded={!isNavCollapsed ? true : false}
                 onClick={openDropdown}
@@ -87,11 +87,11 @@ export const Header = () => {
               } navbar-collapse items-center justify-between w-full md:flex md:w-auto md:order-1`}
               id="navbar-cta"
             >
-              <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 text-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 text-white">
                 <li>
                   <Link
                     href="/"
-                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:bg-transparent dark:text-lime-300"
+                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:bg-transparent"
                     aria-current="page"
                   >
                     Inicio
@@ -100,7 +100,7 @@ export const Header = () => {
                 <li>
                   <Link
                     href="/branches"
-                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:dark:hover:yellow-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:mx-3"
+                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:mx-3"
                   >
                     Sucursales
                   </Link>
@@ -108,7 +108,7 @@ export const Header = () => {
                 {/* <li>
                   <Link
                     href="/about"
-                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:dark:hover:yellow-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 md:mx-3"
+                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:mx-3"
                   >
                     Acerca de
                   </Link>
@@ -116,7 +116,7 @@ export const Header = () => {
                 <li>
                   <Link
                     href="/contact"
-                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:dark:hover:yellow-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300"
                   >
                     Contáctanos
                   </Link>

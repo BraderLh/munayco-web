@@ -1,15 +1,16 @@
 import { CarouselHome } from "@/components/home/CarouselHome";
-import { Header } from "@/components/Header";
 import Link from "next/link";
 import { CiPizza } from "react-icons/ci";
 import { MdRestaurantMenu } from "react-icons/md";
 import { MenuHome } from "@/components/home/MenuHome";
-import PizzasSsr from "@/utils/PizzasSsr";
+import PizzasHome from "@/components/home/PizzasHome";
+import { fetchItems } from "@/services/items";
 
-export default function StartPage() {
+export default async function StartPage() {
+  const initialItems = await fetchItems();
+
   return (
     <>
-      <Header />
       <main className="container mx-auto h-full text-amber-600 block border-2 border-amber-200 gap-3 p-2">
         <section className="hover:bg-lime-50 p-2 rounded-lg">
           <h1 className="font-semibold text-2xl md:text-3xl my-2">Promociones</h1>
@@ -20,7 +21,7 @@ export default function StartPage() {
         <section className="hover:bg-lime-50 p-2 rounded-lg">
           <h1 className="font-semibold text-2xl md:text-3xl my-3">Pizzas</h1>
           <div className="w-full h-full">
-            <PizzasSsr />
+            <PizzasHome items={initialItems} />
           </div>
           {/* <div className="flex justify-end">
             <Link

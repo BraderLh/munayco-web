@@ -1,11 +1,11 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-import { Card, Modal } from "flowbite-react";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { BsDash, BsPlus } from "react-icons/bs";
 import { useCart } from "@/context/CartContext";
 import { formatPen } from "@/utils/currency";
+import { ModalDialog } from "@/components/ui/ModalDialog";
 
 function parseValues(value) {
   if (Array.isArray(value)) {
@@ -88,14 +88,17 @@ export const ItemType = ({ item }) => {
   };
 
   return (
-    <Card className="flex h-full flex-col overflow-hidden border border-orange-300 bg-amber-200">
+    <article className="flex h-full flex-col gap-4 overflow-hidden rounded-lg border border-orange-300 bg-amber-200 p-5 shadow-sm">
       {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt={imageAlt}
-          loading="lazy"
-          className="aspect-[3/2] w-full rounded-md object-cover"
-        />
+        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-md">
+          <Image
+            src={imageUrl}
+            alt={imageAlt}
+            fill
+            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
+            className="object-cover"
+          />
+        </div>
       ) : (
         <div className="flex h-56 items-center justify-center rounded-md bg-amber-100 text-center text-sm text-amber-700">
           Imagen no disponible
@@ -144,20 +147,53 @@ export const ItemType = ({ item }) => {
         </button>
       </div>
 
-      <Modal dismissible show={isOpen} onClose={handleCloseModal}>
-        <Modal.Header className="bg-orange-400">
-          <span className="text-2xl font-bold text-red-700">
-            {item.name || "Detalle del producto"}
-          </span>
-        </Modal.Header>
-        <Modal.Body className="bg-amber-50">
+      <ModalDialog
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+        title={item.name || "Detalle del producto"}
+        titleClassName="text-2xl font-bold text-red-700"
+        bodyClassName="bg-amber-50"
+        footer={
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="w-full sm:w-auto">
+              <p className="text-sm font-semibold text-red-900">
+                {selectedCount} {selectedCount === 1 ? "unidad" : "unidades"}
+              </p>
+              <p className="text-xl font-bold text-red-800">
+                Total: {formatPen(selectedTotal)}
+              </p>
+            </div>
+            <div className="flex w-full flex-col-reverse gap-2 sm:w-auto sm:flex-row">
+              <button
+                type="button"
+                onClick={handleCloseModal}
+                className="rounded-full bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300"
+              >
+                Cerrar
+              </button>
+              <button
+                type="button"
+                onClick={handleAddSelectedToCart}
+                disabled={selectedCount === 0}
+                className="rounded-full bg-lime-700 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-lime-800 focus:outline-none focus:ring-4 focus:ring-lime-300 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Agregar al carrito
+              </button>
+            </div>
+          </div>
+        }
+      >
           <div className="space-y-4">
             {imageUrl && (
-              <img
-                src={imageUrl}
-                alt={imageAlt}
-                className="max-h-80 w-full rounded-md object-contain"
-              />
+              <div className="relative h-64 w-full overflow-hidden rounded-md sm:h-80">
+                <Image
+                  src={imageUrl}
+                  alt={imageAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="object-contain"
+                />
+              </div>
             )}
 
             {item.ingredients && (
@@ -241,35 +277,7 @@ export const ItemType = ({ item }) => {
               </div>
             )}
           </div>
-        </Modal.Body>
-        <Modal.Footer className="flex-col gap-3 bg-amber-100 sm:flex-row sm:items-center sm:justify-between">
-          <div className="w-full sm:w-auto">
-            <p className="text-sm font-semibold text-red-900">
-              {selectedCount} {selectedCount === 1 ? "unidad" : "unidades"}
-            </p>
-            <p className="text-xl font-bold text-red-800">
-              Total: {formatPen(selectedTotal)}
-            </p>
-          </div>
-          <div className="flex w-full flex-col-reverse gap-2 sm:w-auto sm:flex-row">
-            <button
-              type="button"
-              onClick={handleCloseModal}
-              className="rounded-full bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300"
-            >
-              Cerrar
-            </button>
-            <button
-              type="button"
-              onClick={handleAddSelectedToCart}
-              disabled={selectedCount === 0}
-              className="rounded-full bg-lime-700 px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-lime-800 focus:outline-none focus:ring-4 focus:ring-lime-300 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Agregar al carrito
-            </button>
-          </div>
-        </Modal.Footer>
-      </Modal>
-    </Card>
+      </ModalDialog>
+    </article>
   );
 };

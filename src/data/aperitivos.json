@@ -7,7 +7,7 @@
       "itemsTypeId": 22,
       "code": "APE1",
       "itemType": "Aperitivo",
-      "image": "/images/catalog/aperitivos/pan-al-ajo.jpg",
+      "image": "/images/catalog/aperitivos/pan-al-ajo.webp",
       "name": "Pan al Ajo",
       "size": "Unidad",
       "prices": "1"
@@ -17,7 +17,7 @@
       "itemsTypeId": 23,
       "code": "APE2",
       "itemType": "Aperitivo",
-      "image": "/images/catalog/aperitivos/pan-napolitana-especial.jpg",
+      "image": "/images/catalog/aperitivos/pan-napolitana-especial.webp",
       "name": "Pan Napolitana Especial",
       "size": "Unidad",
       "prices": "3"

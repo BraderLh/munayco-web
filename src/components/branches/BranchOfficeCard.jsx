@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, Modal, Button } from "flowbite-react";
 import { BsGeoAlt } from "react-icons/bs";
 import { GiRotaryPhone, GiSmartphone } from "react-icons/gi";
 import { FaPizzaSlice } from "react-icons/fa6";
@@ -8,6 +7,7 @@ import { MdOutlineAccessTime } from "react-icons/md";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { ModalDialog } from "@/components/ui/ModalDialog";
 
 function getMapUrl(location) {
   if (typeof location !== "string") {
@@ -92,13 +92,14 @@ export const BranchOfficeCard = ({ branch }) => {
   };
 
   return (
-    <Card className="flex h-full flex-col overflow-hidden border border-lime-600 bg-amber-50 shadow-lime-500">
+    <article className="flex h-full flex-col gap-4 overflow-hidden rounded-lg border border-lime-600 bg-amber-50 p-5 shadow-md shadow-lime-500/40">
       {imageUrl ? (
         <Image
           alt={`Exterior de la sucursal en ${address}`}
           height={360}
           src={imageUrl}
           width={640}
+          sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 33vw"
           className="h-52 w-full rounded-md object-cover sm:h-56"
         />
       ) : (
@@ -184,11 +185,29 @@ export const BranchOfficeCard = ({ branch }) => {
         </div>
       </div>
 
-      <Modal show={openFrame} onClose={() => setOpenFrame(false)}>
-        <Modal.Header>
-          <span className="text-2xl font-bold text-lime-700">Mapa del local</span>
-        </Modal.Header>
-        <Modal.Body>
+      <ModalDialog
+        isOpen={openFrame}
+        onClose={() => setOpenFrame(false)}
+        title="Mapa del local"
+        footer={
+          <div className="flex flex-col-reverse justify-between gap-2 sm:flex-row">
+            <button
+              type="button"
+              onClick={() => setOpenFrame(false)}
+              className="rounded-lg border border-gray-300 bg-white px-5 py-2.5 font-semibold text-gray-700 transition hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              onClick={copyLocation}
+              className="rounded-lg bg-lime-700 px-5 py-2.5 font-semibold text-white transition hover:bg-lime-800 focus:outline-none focus:ring-4 focus:ring-lime-300"
+            >
+              Copiar dirección
+            </button>
+          </div>
+        }
+      >
           {mapUrl && (
             <div className="w-full overflow-hidden rounded-lg border-2 border-orange-200">
               <iframe
@@ -203,14 +222,7 @@ export const BranchOfficeCard = ({ branch }) => {
               />
             </div>
           )}
-        </Modal.Body>
-        <Modal.Footer className="flex justify-between">
-          <Button color="gray" onClick={() => setOpenFrame(false)}>
-            Cerrar
-          </Button>
-          <Button onClick={copyLocation}>Copiar dirección</Button>
-        </Modal.Footer>
-      </Modal>
-    </Card>
+      </ModalDialog>
+    </article>
   );
 };

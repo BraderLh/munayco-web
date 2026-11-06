@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Label, TextInput } from "flowbite-react";
 import { toast } from "sonner";
 import { createBranch } from "@/services/offices";
+
+const inputClassName =
+  "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 outline-none focus:border-lime-500 focus:ring-2 focus:ring-lime-200";
 
 export const BranchForm = ({ closeModal}) => {
   const initialBranch = {
@@ -53,21 +55,22 @@ export const BranchForm = ({ closeModal}) => {
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="addressId" value="Dirección" />
+          <label htmlFor="addressId">Dirección</label>
         </div>
-        <TextInput
+        <input
           id="addressId"
           name="address"
           placeholder="Av. Parmessano 123 o Calle El Vinñero 321, Urb. Manzanas ..."
           onChange={handleChange}
           required
+          className={inputClassName}
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="telephoneId" value="Teléfono: " />
+          <label htmlFor="telephoneId">Teléfono:</label>
         </div>
-        <TextInput
+        <input
           id="telephoneId"
           name="telephone"
           placeholder="4422 ..."
@@ -77,13 +80,14 @@ export const BranchForm = ({ closeModal}) => {
           //value={branch.telephone}
           onChange={handleChange}
           required
+          className={inputClassName}
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="phoneId" value="Celular: " />
+          <label htmlFor="phoneId">Celular:</label>
         </div>
-        <TextInput
+        <input
           id="phoneId"
           name="phone"
           placeholder="912 3..."
@@ -93,32 +97,26 @@ export const BranchForm = ({ closeModal}) => {
           //value={branch.telephone}
           onChange={handleChange}
           required
+          className={inputClassName}
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="locationId"
-            value="Coordenadas:"
-            className="dark:text-white"
-          />
+          <label htmlFor="locationId">Coordenadas:</label>
         </div>
-        <TextInput
+        <input
           id="locationId"
           name="location"
           placeholder="JF2V+8J Mariano Melgar ..."
           //value={branch.location}
           onChange={handleChange}
           required
+          className={inputClassName}
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="horaInicioId"
-            value="Horario: "
-            className="dark:text-white"
-          />
+          <label htmlFor="horaInicioId">Horario:</label>
         </div>
         <div className="inline-grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="mx-3 md:mx-6">
@@ -127,10 +125,7 @@ export const BranchForm = ({ closeModal}) => {
               name="horarioInicio"
               value={initHour}
               onChange={(e) => setInitHour(e.target.value)}
-              className="w-auto p-2 mb-2 text-sm text-inherit border 
-          border-gray-300 rounded-lg bg-gray-50 focus:ring-lime-500 focus:border-lime-500
-           dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500
-            dark:focus:border-lime-500"
+              className="mb-2 w-auto rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-inherit focus:border-lime-500 focus:ring-lime-500"
             >
               <option value="00">00</option>
               <option value="01">01</option>
@@ -153,7 +148,7 @@ export const BranchForm = ({ closeModal}) => {
               name="horarioFinal"
               value={finalHour}
               onChange={(e) => setFinalHour(e.target.value)}
-              className="w-auto p-2 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="mb-2 w-auto rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             >
               <option value="00">00</option>
               <option value="01">01</option>
@@ -174,15 +169,10 @@ export const BranchForm = ({ closeModal}) => {
       </div>
       <div>
         <div className="mb-2 block">
-          <Label
-            htmlFor="imageId"
-            value="Imagen:"
-            className="dark:text-white"
-          />
+          <label htmlFor="imageId">Imagen:</label>
         </div>
         <input
-          className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 
-        dark:border-gray-600 dark:placeholder-gray-400"
+          className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none"
           aria-describedby="file_input_image"
           id="imageId"
           name="image"
@@ -191,7 +181,7 @@ export const BranchForm = ({ closeModal}) => {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <p
-          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+          className="mt-1 text-sm text-gray-500"
           id="file_input_help"
         >
           SVG, PNG, JPG or GIF (MAX. 800x400px).
@@ -205,7 +195,7 @@ export const BranchForm = ({ closeModal}) => {
               onClick={closeModal}
               className="text-white bg-slate-400 hover:bg-slate-500 
               focus:outline-none focus:ring-4 focus:ring-blue-400 
-              font-medium rounded-lg text-base px-5 py-2.5 text-center me-2 mb-2 dark:focus:ring-slate-700"
+              font-medium rounded-lg text-base px-5 py-2.5 text-center me-2 mb-2"
             >
               Cancelar
             </button>
@@ -216,7 +206,7 @@ export const BranchForm = ({ closeModal}) => {
               className="text-white bg-orange-400 hover:bg-orange-500 
               focus:outline-none focus:ring-4 focus:ring-amber-400 
               font-medium rounded-lg text-base px-5 py-2.5 text-center me-2 mb-2 
-              dark:focus:ring-yellow-900"
+              "
             >
               Crear
             </button>

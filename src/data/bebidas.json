@@ -7,7 +7,7 @@
       "itemsTypeId": 24,
       "code": "BEB1",
       "itemType": "Bebida",
-      "image": "/images/catalog/bebidas/vino-borgona.jpg",
+      "image": "/images/catalog/bebidas/vino-borgona.webp",
       "name": "Vino Borgoña",
       "size": "Botella",
       "prices": "20"
@@ -17,7 +17,7 @@
       "itemsTypeId": 25,
       "code": "BEB2",
       "itemType": "Bebida",
-      "image": "/images/catalog/bebidas/vino-mistela.jpg",
+      "image": "/images/catalog/bebidas/vino-mistela.webp",
       "name": "Vino Mistela",
       "size": "Botella",
       "prices": "20"
@@ -27,7 +27,7 @@
       "itemsTypeId": 26,
       "code": "BEB3",
       "itemType": "Bebida",
-      "image": "/images/catalog/bebidas/vino-de-higo.jpg",
+      "image": "/images/catalog/bebidas/vino-de-higo.webp",
       "name": "Vino de Higo",
       "size": "Botella",
       "prices": "20"
@@ -37,7 +37,7 @@
       "itemsTypeId": 27,
       "code": "BEB4",
       "itemType": "Bebida",
-      "image": "/images/catalog/bebidas/vino-perfecto-amor.jpg",
+      "image": "/images/catalog/bebidas/vino-perfecto-amor.webp",
       "name": "Vino Perfecto Amor",
       "size": "Botella",
       "prices": "22"
@@ -47,7 +47,7 @@
       "itemsTypeId": 28,
       "code": "BEB5",
       "itemType": "Bebida",
-      "image": "/images/catalog/bebidas/vino-rose.jpg",
+      "image": "/images/catalog/bebidas/vino-rose.webp",
       "name": "Vino Rosé",
       "size": "Botella",
       "prices": "20"
@@ -57,7 +57,7 @@
       "itemsTypeId": 29,
       "code": "BEB6",
       "itemType": "Bebida",
-      "image": "/images/catalog/bebidas/sangria.jpg",
+      "image": "/images/catalog/bebidas/sangria.webp",
       "name": "Sangría",
       "size": "Jarra",
       "prices": "20"

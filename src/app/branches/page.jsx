@@ -1,13 +1,10 @@
-import { Header } from "@/components/Header";
 import BranchList from "@/components/branches/BranchList";
 
 export default function BranchesPage() {
   return (
-    <>
-      <Header />
-      <main className="container mx-auto px-4 py-6 md:px-6">
+    <main className="container mx-auto px-4 py-6 md:px-6">
         <section
-          className="mb-8 rounded-lg bg-orange-400 p-5 shadow-sm md:p-8"
+          className="mb-8 rounded-lg bg-orange-600 p-5 shadow-sm md:p-8"
           aria-labelledby="branches-title"
         >
           <p className="text-sm font-semibold uppercase tracking-wider text-amber-300">
@@ -29,7 +26,6 @@ export default function BranchesPage() {
           </h2>
           <BranchList />
         </section>
-      </main>
-    </>
+    </main>
   );
 }

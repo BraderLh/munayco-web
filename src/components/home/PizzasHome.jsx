@@ -1,16 +1,12 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useState } from "react";
-import { fetchItems } from "@/services/items";
-import { useApiCollection } from "@/hooks/useApiCollection";
-import { EmptyState, ErrorState, LoadingState } from "@/components/ui/AsyncState";
+import Image from "next/image";
 
 const MAX_HOME_ITEMS = 4;
 const ROTATION_INTERVAL_MS = 7000;
 
-const PizzasHome = () => {
-  const { data: items, status, error, retry } = useApiCollection(fetchItems);
+const PizzasHome = ({ items }) => {
   const [groupIndex, setGroupIndex] = useState(0);
   const pizzaItems = useMemo(
     () =>
@@ -49,12 +45,7 @@ const PizzasHome = () => {
 
   return (
     <div className="rounded-md border-2 border-dashed border-orange-400 bg-yellow-300 p-2">
-      {status === "loading" && <LoadingState label="Cargando pizzas..." />}
-      {status === "error" && <ErrorState error={error} onRetry={retry} />}
-      {status === "success" && items.length === 0 && (
-        <EmptyState message="No hay pizzas activas disponibles." />
-      )}
-      {status === "success" && featuredItems.length > 0 && (
+      {featuredItems.length > 0 && (
         <div
           className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4"
           aria-live="polite"
@@ -65,12 +56,15 @@ const PizzasHome = () => {
               key={item.itemsTypeId ?? item.id ?? item.code}
             >
               {item.image ? (
-                <img
-                  src={item.image}
-                  alt={item.name ? `Pizza ${item.name}` : "Pizza Munayco"}
-                  loading="lazy"
-                  className="aspect-[3/2] w-full object-cover"
-                />
+                <div className="relative aspect-[3/2] w-full overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.name ? `Pizza ${item.name}` : "Pizza Munayco"}
+                    fill
+                    sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
               ) : (
                 <div className="flex h-44 items-center justify-center text-sm text-amber-950">
                   Imagen no disponible

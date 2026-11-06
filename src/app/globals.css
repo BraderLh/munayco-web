@@ -3,3 +3,9 @@
 @tailwind utilities;
 
 @import url(../assets/index.css);
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+}
