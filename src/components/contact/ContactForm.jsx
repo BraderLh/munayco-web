@@ -107,7 +107,7 @@ export const ContactForm = () => {
     }
 
     setFeedback(
-      "Los datos son válidos. El envío desde este formulario estará disponible cuando conectemos el backend. Por ahora, utiliza el botón de WhatsApp."
+      "Para continuar con tu consulta, comunícate con nosotros mediante el botón de WhatsApp."
     );
   };
 
