@@ -76,7 +76,7 @@ export function CartDrawer() {
       <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-amber-50 shadow-2xl">
         <header className="flex items-center justify-between border-b border-amber-300 bg-lime-700 px-5 py-4 text-white">
           <div>
-            <p className="text-sm text-lime-100">Solicitud de productos</p>
+            <p className="text-sm text-lime-100">Solicitud de platos</p>
             <h2 className="text-2xl font-bold">Tu carrito</h2>
           </div>
           <button

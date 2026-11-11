@@ -66,12 +66,14 @@ export const ContactForm = () => {
   const [values, setValues] = useState(initialValues);
   const [touched, setTouched] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [feedback, setFeedback] = useState("");
   const errors = useMemo(() => validateForm(values), [values]);
 
   const getError = (field) =>
     touched[field] || submitted ? errors[field] : undefined;
 
   const updateField = (field, value) => {
+    setFeedback("");
     const nextValue =
       field === "phone" ? value.replace(/\D/g, "").slice(0, 9) : value;
 
@@ -100,8 +102,13 @@ export const ContactForm = () => {
     });
 
     if (Object.keys(errors).length > 0) {
+      setFeedback("");
       return;
     }
+
+    setFeedback(
+      "Los datos son válidos. El envío desde este formulario estará disponible cuando conectemos el backend. Por ahora, utiliza el botón de WhatsApp."
+    );
   };
 
   return (
@@ -239,6 +246,15 @@ export const ContactForm = () => {
           <BsSend className="mr-2 h-5 w-7" aria-hidden="true" />
           Enviar
         </button>
+        {feedback && (
+          <p
+            className="mx-auto mt-4 max-w-2xl rounded-lg border border-lime-300 bg-lime-50 p-4 text-center text-sm font-medium text-lime-900"
+            role="status"
+            aria-live="polite"
+          >
+            {feedback}
+          </p>
+        )}
       </div>
     </form>
   );

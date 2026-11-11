@@ -8,6 +8,7 @@ export function CategoryFilter({ categories, selectedCategory, onChange }) {
       <button
         type="button"
         onClick={() => onChange("all")}
+        aria-pressed={selectedCategory === "all"}
         className={`rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-lime-400 ${selectedCategory === "all" ? "bg-lime-700 text-white" : "bg-amber-100 text-lime-800 hover:bg-amber-200"}`}
       >
         Todas
@@ -17,6 +18,7 @@ export function CategoryFilter({ categories, selectedCategory, onChange }) {
           type="button"
           key={category}
           onClick={() => onChange(category)}
+          aria-pressed={selectedCategory === category}
           className={`rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-lime-400 ${selectedCategory === category ? "bg-lime-700 text-white" : "bg-amber-100 text-lime-800 hover:bg-amber-200"}`}
         >
           {category}

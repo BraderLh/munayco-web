@@ -1,15 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GiFullPizza } from "react-icons/gi";
 import Link from "next/link";
 import { CartButton } from "@/components/cart/CartButton";
+import { usePathname } from "next/navigation";
 
 export const Header = () => {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsNavCollapsed(true);
+  }, [pathname]);
 
   const openDropdown = () => {
     setIsNavCollapsed(!isNavCollapsed);
   };
+
+  const closeDropdown = () => setIsNavCollapsed(true);
 
   return (
     <>
@@ -20,6 +28,7 @@ export const Header = () => {
             <div>
               <Link
                 href="/"
+                onClick={closeDropdown}
                 className="flex items-center space-x-3 rtl:space-x-reverse text-yellow-50 hover:text-yellow-400 mr-5"
               >
                 <span className="inline-flex font-bold text-4xl tracking-tight whitespace-nowrap">
@@ -61,9 +70,9 @@ export const Header = () => {
                 aria-controls="navbar-cta"
                 aria-expanded={!isNavCollapsed ? true : false}
                 onClick={openDropdown}
-                aria-label="Toggle navigation"
+                aria-label="Abrir o cerrar menú principal"
               >
-                <span className="sr-only">Open main menu</span>
+                <span className="sr-only">Abrir o cerrar menú principal</span>
                 <svg
                   className="w-5 h-5"
                   aria-hidden="true"
@@ -91,6 +100,7 @@ export const Header = () => {
                 <li>
                   <Link
                     href="/"
+                    onClick={closeDropdown}
                     className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:bg-transparent"
                     aria-current="page"
                   >
@@ -100,6 +110,7 @@ export const Header = () => {
                 <li>
                   <Link
                     href="/branches"
+                    onClick={closeDropdown}
                     className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:mx-3"
                   >
                     Sucursales
@@ -108,6 +119,7 @@ export const Header = () => {
                 {/* <li>
                   <Link
                     href="/about"
+                    onClick={closeDropdown}
                     className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300 md:mx-3"
                   >
                     Acerca de
@@ -116,6 +128,7 @@ export const Header = () => {
                 <li>
                   <Link
                     href="/contact"
+                    onClick={closeDropdown}
                     className="block py-2 px-3 md:p-0 text-lg text-white rounded hover:bg-lime-700 md:hover:bg-transparent hover:text-yellow-300"
                   >
                     Contáctanos

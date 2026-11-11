@@ -4,13 +4,13 @@ export default function BranchesPage() {
   return (
     <main className="container mx-auto px-4 py-6 md:px-6">
         <section
-          className="mb-8 rounded-lg bg-orange-600 p-5 shadow-sm md:p-8"
+          className="mb-8 rounded-lg bg-orange-200 p-5 shadow-sm md:p-8"
           aria-labelledby="branches-title"
         >
-          <p className="text-sm font-semibold uppercase tracking-wider text-amber-300">
+          <p className="text-sm font-semibold uppercase tracking-wider text-amber-900">
             Munayco Pizzas
           </p>
-          <h1 id="branches-title" className="mt-1 text-3xl font-bold text-amber-100 md:text-4xl">
+          <h1 id="branches-title" className="mt-1 text-3xl font-bold text-amber-500 md:text-4xl">
             Nuestras sucursales
           </h1>
           <p className="mt-4 max-w-4xl rounded-lg border-2 border-dashed border-amber-200 bg-orange-300 p-5 text-base leading-relaxed text-amber-800">
